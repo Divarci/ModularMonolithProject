@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\Bookify\.editorconfig = ..\Bookify\.editorconfig
+		..\Bookify\Directory.Build.props = ..\Bookify\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E04FF6AB-C112-461B-9254-D8AA8F38A870}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1894B857-BD03-49A3-9F1C-ED7F1D1936DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E35186C3-2808-4DB0-8FBA-09889E5B403A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{171D67A8-4C89-43A0-A90F-14E0E2C48667}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductBook", "ProductBook", "{D8CBDDAB-167F-46FD-B847-3941823BAE3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Domain", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Domain\Futions.CRM.Modules.ProductBook.Domain.csproj", "{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Application", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Application\Futions.CRM.Modules.ProductBook.Application.csproj", "{7C0B89F5-8E47-4136-9A38-3035B72CC91A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Infrastructure", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Infrastructure\Futions.CRM.Modules.ProductBook.Infrastructure.csproj", "{573E1324-DBE2-4337-83EE-71AAC916C254}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Presentation", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Presentation\Futions.CRM.Modules.ProductBook.Presentation.csproj", "{43B3F491-0659-458D-954F-85A189121F38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Domain", "src\Common\Futions.CRM.Common.Domain\Futions.CRM.Common.Domain.csproj", "{53457FE5-C336-405E-9E5E-6BC2F822EB39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Application", "src\Common\Futions.CRM.Common.Application\Futions.CRM.Common.Application.csproj", "{807CEC08-F972-42C7-ADD4-22AD6B3993E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Infrastructure", "src\Common\Futions.CRM.Common.Infrastructure\Futions.CRM.Common.Infrastructure.csproj", "{42274E94-7915-4D82-8F6B-46796787767E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Presentation", "src\Common\Futions.CRM.Common.Presentation\Futions.CRM.Common.Presentation.csproj", "{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0B89F5-8E47-4136-9A38-3035B72CC91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0B89F5-8E47-4136-9A38-3035B72CC91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0B89F5-8E47-4136-9A38-3035B72CC91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0B89F5-8E47-4136-9A38-3035B72CC91A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573E1324-DBE2-4337-83EE-71AAC916C254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573E1324-DBE2-4337-83EE-71AAC916C254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573E1324-DBE2-4337-83EE-71AAC916C254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573E1324-DBE2-4337-83EE-71AAC916C254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43B3F491-0659-458D-954F-85A189121F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43B3F491-0659-458D-954F-85A189121F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43B3F491-0659-458D-954F-85A189121F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43B3F491-0659-458D-954F-85A189121F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53457FE5-C336-405E-9E5E-6BC2F822EB39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53457FE5-C336-405E-9E5E-6BC2F822EB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53457FE5-C336-405E-9E5E-6BC2F822EB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53457FE5-C336-405E-9E5E-6BC2F822EB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807CEC08-F972-42C7-ADD4-22AD6B3993E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807CEC08-F972-42C7-ADD4-22AD6B3993E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807CEC08-F972-42C7-ADD4-22AD6B3993E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807CEC08-F972-42C7-ADD4-22AD6B3993E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42274E94-7915-4D82-8F6B-46796787767E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42274E94-7915-4D82-8F6B-46796787767E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42274E94-7915-4D82-8F6B-46796787767E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42274E94-7915-4D82-8F6B-46796787767E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1894B857-BD03-49A3-9F1C-ED7F1D1936DF} = {E04FF6AB-C112-461B-9254-D8AA8F38A870}
+		{E35186C3-2808-4DB0-8FBA-09889E5B403A} = {E04FF6AB-C112-461B-9254-D8AA8F38A870}
+		{171D67A8-4C89-43A0-A90F-14E0E2C48667} = {E04FF6AB-C112-461B-9254-D8AA8F38A870}
+		{D8CBDDAB-167F-46FD-B847-3941823BAE3B} = {171D67A8-4C89-43A0-A90F-14E0E2C48667}
+		{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9} = {D8CBDDAB-167F-46FD-B847-3941823BAE3B}
+		{7C0B89F5-8E47-4136-9A38-3035B72CC91A} = {D8CBDDAB-167F-46FD-B847-3941823BAE3B}
+		{573E1324-DBE2-4337-83EE-71AAC916C254} = {D8CBDDAB-167F-46FD-B847-3941823BAE3B}
+		{43B3F491-0659-458D-954F-85A189121F38} = {D8CBDDAB-167F-46FD-B847-3941823BAE3B}
+		{53457FE5-C336-405E-9E5E-6BC2F822EB39} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
+		{807CEC08-F972-42C7-ADD4-22AD6B3993E3} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
+		{42274E94-7915-4D82-8F6B-46796787767E} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
+		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB4246C6-FF5D-41B8-8C93-A8580135A4CC}
+	EndGlobalSection
+EndGlobal

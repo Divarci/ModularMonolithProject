@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,15 +17,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E35186
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{171D67A8-4C89-43A0-A90F-14E0E2C48667}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductBook", "ProductBook", "{D8CBDDAB-167F-46FD-B847-3941823BAE3B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalogue", "Catalogue", "{D8CBDDAB-167F-46FD-B847-3941823BAE3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Domain", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Domain\Futions.CRM.Modules.ProductBook.Domain.csproj", "{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Catalogue.Domain", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Domain\Futions.CRM.Modules.Catalogue.Domain.csproj", "{8BA45F0D-B2DA-40DC-A521-224AEA11DFA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Application", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Application\Futions.CRM.Modules.ProductBook.Application.csproj", "{7C0B89F5-8E47-4136-9A38-3035B72CC91A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Catalogue.Application", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Application\Futions.CRM.Modules.Catalogue.Application.csproj", "{7C0B89F5-8E47-4136-9A38-3035B72CC91A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Infrastructure", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Infrastructure\Futions.CRM.Modules.ProductBook.Infrastructure.csproj", "{573E1324-DBE2-4337-83EE-71AAC916C254}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Catalogue.Infrastructure", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Infrastructure\Futions.CRM.Modules.Catalogue.Infrastructure.csproj", "{573E1324-DBE2-4337-83EE-71AAC916C254}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.ProductBook.Presentation", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Presentation\Futions.CRM.Modules.ProductBook.Presentation.csproj", "{43B3F491-0659-458D-954F-85A189121F38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Catalogue.Presentation", "src\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Presentation\Futions.CRM.Modules.Catalogue.Presentation.csproj", "{43B3F491-0659-458D-954F-85A189121F38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Domain", "src\Common\Futions.CRM.Common.Domain\Futions.CRM.Common.Domain.csproj", "{53457FE5-C336-405E-9E5E-6BC2F822EB39}"
 EndProject

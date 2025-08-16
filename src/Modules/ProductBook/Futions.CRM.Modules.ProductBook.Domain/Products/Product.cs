@@ -1,9 +1,9 @@
-﻿using Futions.CRM.Common.Domain;
+﻿using Futions.CRM.Common.Domain.Entities;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.Products;
-public sealed partial class Product : BaseEntity
+public sealed partial class Product : BaseEntity, IAggregate
 {
     private Product() { }
 
@@ -51,6 +51,7 @@ public sealed partial class Product : BaseEntity
                 error: ProductErrors.NegativeValue(nameof(price)));
         }
 
+        Id = Guid.NewGuid();
         Title = title;
         Description = description;
         Price = price;

@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.DomainEvents;
 
-namespace Futions.CRM.Common.Domain;
+namespace Futions.CRM.Common.Domain.Entities;
 public abstract class BaseEntity
 {
     private readonly List<IDomainEvent> _domainEvents = [];

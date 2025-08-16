@@ -4,7 +4,8 @@ using Futions.CRM.Modules.Catalogue.Domain.Products.DomainEvents;
 namespace Futions.CRM.Modules.Catalogue.Domain.Products;
 public partial class Product
 {
-    internal static Product Create(Guid productBookId, string title, string description, decimal price)
+    public static Product Create(
+        Guid productBookId, string title, string description, decimal price)
     {
         var product = new Product(productBookId, title, description, price);
 
@@ -13,7 +14,7 @@ public partial class Product
         return product;
     }
 
-    internal void UpdateTitle(string title)
+    public void UpdateTitle(string title)
     {
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -40,7 +41,7 @@ public partial class Product
 
     }
 
-    internal void UpdateDescription(string description)
+    public void UpdateDescription(string description)
     {
         if (string.IsNullOrWhiteSpace(description))
         {
@@ -66,7 +67,7 @@ public partial class Product
         Raise(new ProductDescriptionUpdatedDomainEvent(ProductBookId, Id));
     }
 
-    internal void UpdatePrice(decimal price)
+    public void UpdatePrice(decimal price)
     {
         if (price < 0)
         {

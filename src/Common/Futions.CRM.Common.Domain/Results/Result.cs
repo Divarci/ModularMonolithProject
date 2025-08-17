@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Futions.CRM.Common.Domain.Results;
 
@@ -18,6 +19,7 @@ public class Result
 
     public bool IsSuccess { get; }
 
+    [JsonIgnore]
     public bool IsFailure => !IsSuccess;
 
     public Error Error { get; }

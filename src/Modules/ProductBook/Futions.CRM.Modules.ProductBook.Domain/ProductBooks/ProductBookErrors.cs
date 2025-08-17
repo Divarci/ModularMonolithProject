@@ -7,15 +7,15 @@ public static class ProductBookErrors
         "ProductBook.NotFound",
         $"Product book with ID '{productBookId}' was not found.");
 
-    public static readonly Error HasProducts = Error.Conflict(
+    public static readonly Error HasProducts = Error.Problem(
         "ProductBook.HasProducts",
         "Cannot delete product book because it contains products.");
 
-    public static readonly Error IsActive = Error.Conflict(
+    public static readonly Error IsActive = Error.Problem(
         "ProductBook.IsActive",
         "Product book is active.");
 
-    public static readonly Error IsInactive = Error.Conflict(
+    public static readonly Error IsInactive = Error.Problem(
         "ProductBook.IsInactive",
         "Product book is inactive.");
 

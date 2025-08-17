@@ -1,14 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Infrastructure\Futions.CRM.Common.Infrastructure.csproj" />
-    <ProjectReference Include="..\Futions.CRM.Modules.ProductBook.Domain\Futions.CRM.Modules.Catalogue.Domain.csproj" />
+    <ProjectReference Include="..\Futions.CRM.Modules.ProductBook.Application\Futions.CRM.Modules.Catalogue.Application.csproj" />
+    <ProjectReference Include="..\Futions.CRM.Modules.ProductBook.Presentation\Futions.CRM.Modules.Catalogue.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

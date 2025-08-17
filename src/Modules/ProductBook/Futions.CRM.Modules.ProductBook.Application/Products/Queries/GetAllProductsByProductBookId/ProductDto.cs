@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Futions.CRM.Modules.Catalogue.Application.Products.Queries.GetAllProductsByProductId;
+namespace Futions.CRM.Modules.Catalogue.Application.Products.Queries.GetAllProductsByProductBookId;
 public record ProductDto
 {
     [Required, JsonProperty("id")]

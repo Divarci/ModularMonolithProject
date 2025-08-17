@@ -14,7 +14,7 @@ public static class InfrastructureConfiguration
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<,>));
-        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<,>));
+        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
+        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
     }
 }

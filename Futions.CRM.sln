@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Common.Presentation", "src\Common\Futions.CRM.Common.Presentation\Futions.CRM.Common.Presentation.csproj", "{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.API.Presentation", "src\API\Futions.CRM.API.Presentation\Futions.CRM.API.Presentation.csproj", "{1398ABAA-BB4A-45DC-ACB3-663109AAED31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1398ABAA-BB4A-45DC-ACB3-663109AAED31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1398ABAA-BB4A-45DC-ACB3-663109AAED31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1398ABAA-BB4A-45DC-ACB3-663109AAED31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1398ABAA-BB4A-45DC-ACB3-663109AAED31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{807CEC08-F972-42C7-ADD4-22AD6B3993E3} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
 		{42274E94-7915-4D82-8F6B-46796787767E} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
 		{CEBE516B-45A4-4CC8-8FE6-21929F2BFF4C} = {E35186C3-2808-4DB0-8FBA-09889E5B403A}
+		{1398ABAA-BB4A-45DC-ACB3-663109AAED31} = {1894B857-BD03-49A3-9F1C-ED7F1D1936DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB4246C6-FF5D-41B8-8C93-A8580135A4CC}

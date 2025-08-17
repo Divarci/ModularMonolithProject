@@ -4,14 +4,14 @@ using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace Futions.CRM.Modules.Catalogue.Application.Products.Queries.GetAllProductsByProductId;
-internal sealed class GetAllProductsByProductBookIdCommandHandler(
-    IUnitOfWork unitOfWork) : IQueryHandler<GetAllProductsByProductBookIdCommand, ProductDto[]>
+namespace Futions.CRM.Modules.Catalogue.Application.Products.Queries.GetAllProductsByProductBookId;
+internal sealed class GetAllProductsByProductBookIdQueryHandler(
+    IUnitOfWork unitOfWork) : IQueryHandler<GetAllProductsByProductBookIdQuery, ProductDto[]>
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result<ProductDto[]>> Handle(
-        GetAllProductsByProductBookIdCommand request, CancellationToken cancellationToken)
+        GetAllProductsByProductBookIdQuery request, CancellationToken cancellationToken)
     {
         ProductDto[] products = await _unitOfWork
             .GetReadRepository<Product>()

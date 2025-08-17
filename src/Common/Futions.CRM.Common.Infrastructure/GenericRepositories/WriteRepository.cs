@@ -3,11 +3,10 @@ using Futions.CRM.Common.Domain.IGenericRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Common.Infrastructure.GenericRepositories;
-public sealed class WriteRepository<TEntity, TContext>(TContext context) : IWriteRepository<TEntity>
+public sealed class WriteRepository<TEntity>(DbContext context) : IWriteRepository<TEntity>
     where TEntity : class, IRootAggregate
-    where TContext : DbContext
 {
-    private readonly TContext _context = context;
+    private readonly DbContext _context = context;
 
     public async Task<TEntity> CreateAsync(
        TEntity entity,

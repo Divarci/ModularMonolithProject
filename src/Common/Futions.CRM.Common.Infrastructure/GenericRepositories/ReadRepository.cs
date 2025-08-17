@@ -3,11 +3,10 @@ using Futions.CRM.Common.Domain.IGenericRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Common.Infrastructure.GenericRepositories;
-public sealed class ReadRepository<TEntity, TContext>(TContext context) : IReadRepository<TEntity>
+public sealed class ReadRepository<TEntity>(DbContext context) : IReadRepository<TEntity>
     where TEntity : class, IAggregate
-    where TContext : DbContext
 {
-    private readonly TContext _context = context;
+    private readonly DbContext _context = context;
 
     public IQueryable<TEntity> GetAll()
         => _context

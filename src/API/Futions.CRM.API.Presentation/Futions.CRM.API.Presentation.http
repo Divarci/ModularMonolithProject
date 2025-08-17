@@ -1,0 +1,6 @@
+@Futions.CRM.API.Presentation_HostAddress = http://localhost:5213
+
+GET {{Futions.CRM.API.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

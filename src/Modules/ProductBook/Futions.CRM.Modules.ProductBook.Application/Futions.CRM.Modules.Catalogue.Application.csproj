@@ -1,15 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="ProductBooks\Queries\GetAllProductBooks\ProductBookDto.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Application\Futions.CRM.Common.Application.csproj" />
     <ProjectReference Include="..\Futions.CRM.Modules.ProductBook.Domain\Futions.CRM.Modules.Catalogue.Domain.csproj" />

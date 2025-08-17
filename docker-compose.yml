@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+    futions.api:
+        image: ${DOCKER_REGISTRY-}futionscrmapipresentation
+        container_name: Futions.Api
+        build:
+            context: .
+            dockerfile: src/API/Futions.CRM.API.Presentation/Dockerfile
+        ports:
+            - 5000:8080
+            - 5001:8081
+        environment:
+            ConnectionStrings__Database: "Server=Futions.Database;Database=ModularMonoloth;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+
+    futions.database:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: Futions.Database
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "YourStrong!Passw0rd"
+            ACCEPT_EULA: "Y"
+        volumes:
+            - mssql_data:/var/opt/mssql
+
+    futions.seq:
+        image: datalust/seq:latest
+        container_name: Futions.Seq
+        ports:
+            - "5341:5341"
+            - "8081:80"
+        environment:
+            SEQ_FIRSTRUN_ADMINPASSWORD: "YourStrongPassword!"
+            ACCEPT_EULA: "Y"
+
+volumes:
+  mssql_data:
+    
+       
+

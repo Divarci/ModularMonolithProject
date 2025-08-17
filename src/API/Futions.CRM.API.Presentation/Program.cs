@@ -3,10 +3,14 @@ using Futions.CRM.Common.Application;
 using Futions.CRM.Common.Infrastructure;
 using Futions.CRM.Modules.Catalogue.Infrastructure;
 using Futions.CRM.Common.Presentation.Endpoints;
+using Serilog;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthorization();
+
+builder.Host.UseSerilog((context, LoggerConfiguration) =>
+    LoggerConfiguration
+        .ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddOpenApi();
 
@@ -30,10 +34,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapEndpoints();
+
+app.UseSerilogRequestLogging();
 
 app.Run();

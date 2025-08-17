@@ -26,4 +26,8 @@ public static class ProductBookErrors
     public static Error NullValue(string fieldName) => Error.Validation(
         "ProductBook.NullValue",
         $"{fieldName} cannot be null or empty.");
+
+    public static Error HasExist(string fieldName) => Error.Problem(
+        "ProductBook.HasExist",
+        $"{fieldName} has already exist.");
 }

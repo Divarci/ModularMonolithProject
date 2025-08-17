@@ -26,13 +26,18 @@ internal sealed class CreateProductCommandHandler(
             return Result.Failure<Product>(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        var product = Product.Create(
+        Result<Product> result = Product.Create(
             productBookId: request.ProductBookId,
             title: request.Title,
             description: request.Description,
             price: request.Price);
 
-        productBook.AddProduct(product);
+        if (result.IsFailure)
+        {
+            return Result.Failure<Product>(result.Error);
+        }
+
+        productBook.AddProduct(result.Value);
 
         _unitOfWork
             .GetWriteRepository<ProductBook>()
@@ -40,6 +45,6 @@ internal sealed class CreateProductCommandHandler(
         
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return Result.Success(product);
+        return Result.Success(result.Value);
     }
 }

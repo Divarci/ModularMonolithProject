@@ -1,5 +1,4 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
-using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.Products;
@@ -9,48 +8,6 @@ public sealed partial class Product : BaseEntity, IAggregate
 
     private Product(Guid productBookId, string title, string description, decimal price)
     {
-        if (productBookId == Guid.Empty)
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.NullValue(nameof(productBookId)));
-        }
-
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.NullValue(nameof(title)));
-        }
-
-        if (title.Length > 64)
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.MaxLength(nameof(title), 64));
-        }
-
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.NullValue(nameof(description)));
-        }
-
-        if (description.Length > 512)
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.MaxLength(nameof(description), 512));
-        }
-
-        if (price < 0)
-        {
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.NegativeValue(nameof(price)));
-        }
-
         Id = Guid.NewGuid();
         Title = title;
         Description = description;

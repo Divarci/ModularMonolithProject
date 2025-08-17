@@ -25,8 +25,8 @@ internal sealed class UpdateProductComandHandler(
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        if (!string.IsNullOrEmpty(request.Title) && 
-            !string.IsNullOrEmpty(request.Description) && 
+        if (string.IsNullOrEmpty(request.Title) && 
+            string.IsNullOrEmpty(request.Description) && 
             !request.Price.HasValue)
         {
             return Result.Failure(Error.Conflict(
@@ -36,17 +36,32 @@ internal sealed class UpdateProductComandHandler(
 
         if (!string.IsNullOrEmpty(request.Title))
         {
-            productBook.UpdateProductTitle(request.ProductId, request.Title);
+            Result result = productBook.UpdateProductTitle(request.ProductId, request.Title);
+
+            if(result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
         }
 
         if (!string.IsNullOrEmpty(request.Description))
         {
-            productBook.UpdateProductDescription(request.ProductId, request.Description);
+            Result result = productBook.UpdateProductDescription(request.ProductId, request.Description);
+
+            if (result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
         }
 
         if (request.Price.HasValue)
         {
-            productBook.UpdateProductPrice(request.ProductId, request.Price.Value);
+            Result result = productBook.UpdateProductPrice(request.ProductId, request.Price.Value);
+
+            if (result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
         }
 
         _unitOfWork

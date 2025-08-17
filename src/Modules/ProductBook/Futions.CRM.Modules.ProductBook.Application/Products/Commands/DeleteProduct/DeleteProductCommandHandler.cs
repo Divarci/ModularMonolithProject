@@ -26,7 +26,12 @@ internal sealed class DeleteProductCommandHandler(
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        productBook.RemoveProduct(request.ProductId);
+        Result result = productBook.RemoveProduct(request.ProductId);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Error);
+        }
 
         _unitOfWork.GetWriteRepository<ProductBook>().Update(productBook);
 

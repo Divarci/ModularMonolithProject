@@ -4,6 +4,7 @@ using Futions.CRM.Common.Infrastructure;
 using Futions.CRM.Modules.Catalogue.Infrastructure;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Serilog;
+using Futions.CRM.API.Presentation.Extensions;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, LoggerConfiguration) =>
     LoggerConfiguration
         .ReadFrom.Configuration(context.Configuration));
+
+builder.Configuration.AddModuleConfiguration(["catalogue"]);
 
 builder.Services.AddOpenApi();
 

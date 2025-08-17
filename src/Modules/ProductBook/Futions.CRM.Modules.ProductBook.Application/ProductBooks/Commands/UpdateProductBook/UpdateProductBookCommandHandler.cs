@@ -21,26 +21,33 @@ internal sealed class UpdateProductBookCommandHandler(
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        if(!string.IsNullOrEmpty(request.Title) && !request.Inactive.HasValue)
+        if (string.IsNullOrEmpty(request.Title) && !request.Inactive.HasValue)
         {
-            return Result.Failure(Error.Conflict(
-                "ProductBook.Conflict",
+            return Result.Failure(Error.Problem(
+                "ProductBook.Problem",
                 "All fields can not be null or empty"));
         }
 
-        if(!string.IsNullOrEmpty(request.Title))
+        if (!string.IsNullOrEmpty(request.Title))
         {
-            productBook.UpdateTitle(request.Title);
+            Result result = productBook.UpdateTitle(request.Title);
+
+            if (result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
         }
 
-        if (request.Inactive.HasValue && request.Inactive.Value)
+        if (request.Inactive.HasValue)
         {
-            productBook.SetInactive();    
-        }
+            Result result = request.Inactive.Value
+                ? productBook.SetInactive()
+                : productBook.SetActive();
 
-        if (request.Inactive.HasValue && !request.Inactive.Value)
-        {
-            productBook.SetActive();
+            if (result.IsFailure)
+            {
+                return result;
+            }
         }
 
         _unitOfWork

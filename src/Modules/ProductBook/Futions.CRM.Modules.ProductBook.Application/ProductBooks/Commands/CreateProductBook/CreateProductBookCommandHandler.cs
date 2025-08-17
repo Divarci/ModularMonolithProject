@@ -12,14 +12,19 @@ internal sealed class CreateProductBookCommandHandler(
     public async Task<Result<ProductBook>> Handle(
         CreateProductBookCommand request, CancellationToken cancellationToken)
     {
-        var productBook = ProductBook.Create(request.Title);
+        Result<ProductBook> result = ProductBook.Create(request.Title);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure<ProductBook>(result.Error);
+        }
 
         await _unitOfWOrk
             .GetWriteRepository<ProductBook>()
-            .CreateAsync(productBook, cancellationToken);
+            .CreateAsync(result.Value, cancellationToken);
 
         await _unitOfWOrk.CommitAsync(cancellationToken);
 
-        return Result.Success(productBook);
+        return Result.Success(result.Value);
     }
 }

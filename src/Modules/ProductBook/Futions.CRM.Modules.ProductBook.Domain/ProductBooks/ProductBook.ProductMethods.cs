@@ -1,84 +1,110 @@
-﻿using Futions.CRM.Common.Domain.Exceptions;
+﻿using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents;
 using Futions.CRM.Modules.Catalogue.Domain.Products;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 public partial class ProductBook
 {
-    public void AddProduct(Product product)
+    public Result AddProduct(Product product)
     {
         if (product is null)
         {
-            throw new DomainException(
-                entityName: nameof(ProductBook),
-                error: ProductBookErrors.NullValue(nameof(product)));
+            return Result.Failure<ProductBook>(
+                ProductErrors.NullValue(nameof(product)));
         }
 
-        IsActiveOrThrow();
-
-        if (_products.Any(x=>x.Id == product.Id))
+        if (Inactive)
         {
-            return;
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
+
+        if (_products.Any(x => x.Id == product.Id))
+        {
+            return Result.Failure(ProductBookErrors.HasExist(product.Id.ToString()));
         }
 
         _products.Add(product);
 
         Raise(new ProductAddedToProductBookDomainEvent(Id, product.Id));
+
+        return Result.Success();
     }
 
-    public void RemoveProduct(Guid productId)
+    public Result RemoveProduct(Guid productId)
     {
-        IsActiveOrThrow();
+        if (Inactive)
+        {
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
 
-        Product product = GetProductOrThrow(productId);
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
 
         _products.Remove(product);
 
         Raise(new ProductRemovedFromProductBookDomainEvent(Id, product.Id));
+
+        return Result.Success();
     }
 
-    public void UpdateProductDescription(Guid productId, string description)
-    {
-        IsActiveOrThrow();
-
-        Product product = GetProductOrThrow(productId);
-
-        product.UpdateDescription(description);
-    }
-
-    public void UpdateProductTitle(Guid productId, string title)
-    {
-        IsActiveOrThrow();
-
-        Product product = GetProductOrThrow(productId);
-
-        product.UpdateTitle(title);
-    }
-
-    public void UpdateProductPrice(Guid productId, decimal price)
-    {
-        IsActiveOrThrow();
-
-        Product product = GetProductOrThrow(productId);
-
-        product.UpdatePrice(price);
-    }
-
-    private Product GetProductOrThrow(Guid productId)
-    {
-        return _products.SingleOrDefault(p => p.Id == productId) ??
-            throw new DomainException(
-                entityName: nameof(Product),
-                error: ProductErrors.NotFound(productId));
-    }
-
-    private void IsActiveOrThrow()
+    public Result UpdateProductDescription(Guid productId, string description)
     {
         if (Inactive)
         {
-            throw new DomainException(
-                entityName: nameof(ProductBook),
-                error: ProductBookErrors.IsInactive);
+            return Result.Failure(ProductBookErrors.IsInactive);
         }
+
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
+
+        product.UpdateDescription(description);
+
+        return Result.Success();
+    }
+
+    public Result UpdateProductTitle(Guid productId, string title)
+    {
+        if (Inactive)
+        {
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
+
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
+
+        product.UpdateTitle(title);
+
+        return Result.Success();
+    }
+
+    public Result UpdateProductPrice(Guid productId, decimal price)
+    {
+        if (Inactive)
+        {
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
+
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
+
+        product.UpdatePrice(price);
+
+        return Result.Success();
     }
 }

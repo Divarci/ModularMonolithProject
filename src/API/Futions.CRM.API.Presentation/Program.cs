@@ -6,6 +6,8 @@ using Futions.CRM.Common.Presentation.Endpoints;
 using Serilog;
 using Futions.CRM.API.Presentation.Extensions;
 using Futions.CRM.API.Presentation.Middleware;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -32,8 +34,13 @@ builder.Services.AddApplication(moduleApplicationAssemblies);
 
 builder.Services.AddInfrastructure();
 
-builder.Services.AddCatalogueModule(builder.Configuration);
+string catalogueConnectionString = builder.Configuration.GetConnectionString("CatalogueDatabase");
 
+builder.Services.AddCatalogueModule(catalogueConnectionString!);
+
+builder.Services.AddHealthChecks()
+    .AddSqlServer(catalogueConnectionString!);
+    
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -42,6 +49,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapEndpoints();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.UseSerilogRequestLogging();
 

@@ -1,28 +1,5 @@
 {
   "ConnectionStrings": {
-    "Database": "Server=localhost,1433;Database=ModularMonoloth;User Id=SA;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
-  },
-  "Serilog": {
-    "Using": [
-      "Serilog.Sinks.Console",
-      "Serilog.Sinks.Seq"
-    ],
-    "MinimumLevel": {
-      "Default": "Information",
-      "Override": {
-        "Microsoft": "Information"        
-      }
-    },
-    "WriteTo": [
-      { "Name": "Console" },
-      {
-        "Name": "Seq",
-        "Args": { "serverUrl": "http://futions.seq:5341" }
-      }
-    ],
-    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
-    "Properties": {
-      "Application": "Futions.CRM.Api"
-    }
+    "CatalogueDatabase": "Server=localhost,1433;Database=ModularMonoloth;User Id=SA;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
   }
 }

@@ -11,7 +11,7 @@ services:
             - 5000:8080
             - 5001:8081
         environment:
-            ConnectionStrings__Database: "Server=Futions.Database;Database=ModularMonoloth;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+            ConnectionStrings__CatalogueDatabase: "Server=Futions.Database;Database=ModularMonoloth;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
 
     futions.database:
         image: mcr.microsoft.com/mssql/server:2022-latest

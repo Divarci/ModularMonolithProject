@@ -1,7 +1,7 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 
 namespace Futions.CRM.Modules.Catalogue.Application.Products.Commands.UpdateProduct;
-public record UpdateProductComand(
+public record UpdateProductCommand(
     Guid ProductBookId,
     Guid ProductId,
     string? Title,

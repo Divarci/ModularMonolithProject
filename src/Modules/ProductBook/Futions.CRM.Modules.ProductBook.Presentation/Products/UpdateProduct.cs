@@ -17,7 +17,7 @@ internal sealed class UpdateProduct : IEndpoint
             async (Guid id, Guid productId, UpdateProductDto request, 
             ISender sender, CancellationToken cancellationToken = default) =>
         {
-            var command = new UpdateProductComand(
+            var command = new UpdateProductCommand(
                 id, productId, request.Title, request.Description, request.Price);
 
             Result result = await sender.Send(command, cancellationToken);

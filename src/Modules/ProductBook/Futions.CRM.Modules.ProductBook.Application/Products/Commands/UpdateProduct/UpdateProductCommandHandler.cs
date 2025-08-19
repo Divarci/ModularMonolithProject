@@ -5,13 +5,13 @@ using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Application.Products.Commands.UpdateProduct;
-internal sealed class UpdateProductComandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<UpdateProductComand>
+internal sealed class UpdateProductCommandHandler(
+    IUnitOfWork unitOfWork) : ICommandHandler<UpdateProductCommand>
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
-        UpdateProductComand request, CancellationToken cancellationToken)
+        UpdateProductCommand request, CancellationToken cancellationToken)
     {
         ProductBook productBook = await _unitOfWork
             .GetReadRepository<ProductBook>()

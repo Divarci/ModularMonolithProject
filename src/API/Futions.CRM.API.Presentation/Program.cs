@@ -5,6 +5,7 @@ using Futions.CRM.Modules.Catalogue.Infrastructure;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Serilog;
 using Futions.CRM.API.Presentation.Extensions;
+using Futions.CRM.API.Presentation.Middleware;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, LoggerConfiguration) =>
     LoggerConfiguration
         .ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Configuration.AddModuleConfiguration(["catalogue"]);
 
@@ -40,5 +44,7 @@ if (app.Environment.IsDevelopment())
 app.MapEndpoints();
 
 app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
 
 app.Run();

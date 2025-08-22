@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Deals\DomainEvents\DealDomainEvents\" />
+    <Folder Include="Deals\DomainEvents\DealProductDomainEvents\" />
+    <Folder Include="Deals\DomainEvents\DealPersonDomainEvents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Domain\Futions.CRM.Common.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

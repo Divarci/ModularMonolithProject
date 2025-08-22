@@ -1,12 +1,10 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
-using Futions.CRM.Modules.Catalogue.Domain.Products;
 
-namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
-
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 public sealed partial class ProductBook : BaseEntity, IRootAggregate
 {
     private ProductBook(string title)
-    {    
+    {
         Id = Guid.NewGuid();
         Title = title;
         Inactive = false;

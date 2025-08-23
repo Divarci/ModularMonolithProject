@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Domain\Futions.CRM.Common.Domain.csproj" />
+  </ItemGroup>
+</Project>

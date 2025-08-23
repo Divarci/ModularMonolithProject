@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Results;
+﻿using Futions.CRM.Common.Domain.Extensions;
+using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Deals.Domain.Deals.Errors;
 
 namespace Futions.CRM.Modules.Deals.Domain.Deals;
@@ -6,14 +7,11 @@ public partial class Deal
 {
     public static Result<Deal> Create(string title, Guid organisationId, Guid organisationPersonId)
     {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return Result.Failure<Deal>(DealErrors.NullValue(nameof(title)));
-        }
+        Result result = title.Validate(nameof(title), 64, "Deal");
 
-        if (title.Length > 64)
+        if (result.IsFailure)
         {
-            return Result.Failure<Deal>(DealErrors.MaxLength(nameof(title),64));
+            return Result.Failure<Deal>(result.Error);
         }
 
         if (organisationId == Guid.Empty)
@@ -28,19 +26,18 @@ public partial class Deal
 
         var deal = new Deal(title, organisationId, organisationPersonId);
 
+        //Raise domain event
+
         return Result.Success(deal);
     }
 
     public Result UpdateDealTitle(string title)
     {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return Result.Failure(DealErrors.NullValue(nameof(title)));
-        }
+        Result result = title.Validate(nameof(title), 64, "Deal");
 
-        if (title.Length > 64)
+        if (result.IsFailure)
         {
-            return Result.Failure(DealErrors.MaxLength(nameof(title), 64));
+            return Result.Failure<Deal>(result.Error);
         }
 
         Title = title;

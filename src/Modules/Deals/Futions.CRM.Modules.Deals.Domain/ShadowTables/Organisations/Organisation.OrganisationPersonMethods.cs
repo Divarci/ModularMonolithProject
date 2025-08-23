@@ -4,14 +4,14 @@ using Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations.Errors;
 namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations;
 public sealed partial class Organisation
 {
-    public Result AddPersonToOrganisation(Guid personId)
+    public Result AddPersonToOrganisation(Guid personId, string personFullname)
     {
         if(personId == Guid.Empty)
         {
             return Result.Failure(OrganisationPersonErrors.NullValue(nameof(personId)));
         }
 
-        Result<OrganisationPerson> result = OrganisationPerson.Create(Id, personId);
+        Result<OrganisationPerson> result = OrganisationPerson.Create(Id, personId, personFullname);
         
         if (result.IsFailure)
         {

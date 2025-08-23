@@ -20,6 +20,8 @@ public partial class Deal
 
         _dealPeople.Add(result.Value);
 
+        //Raise domain event
+
         return Result.Success();
     }
 
@@ -44,7 +46,9 @@ public partial class Deal
 
         _dealPeople.Remove(dealPerson);
 
-        if (dealPerson.Id == PrimaryDealPersonId)
+        //Raise domain event
+
+        if (dealPersonId == PrimaryDealPersonId)
         {
             DealPerson person = DealPeople.FirstOrDefault();
 
@@ -53,7 +57,9 @@ public partial class Deal
                 return Result.Failure(DealErrors.NullValue(nameof(PrimaryDealPersonId)));
             }
 
-            PrimaryDealPersonId = dealPerson.Id;
+            PrimaryDealPersonId = person.Id;
+
+            //Raise domain event
         }
 
         return Result.Success();

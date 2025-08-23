@@ -1,8 +1,8 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Catalogue.Domain.Products.DomainEvents;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products.Errors;
 
-namespace Futions.CRM.Modules.Catalogue.Domain.Products;
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 public partial class Product
 {
     public static Result<Product> Create(
@@ -14,7 +14,7 @@ public partial class Product
         }
 
         Result titleResult = title.Validate(nameof(title), 64, "Product");
-        
+
         if (titleResult.IsFailure)
         {
             return Result.Failure<Product>(titleResult.Error);
@@ -34,8 +34,6 @@ public partial class Product
 
         var product = new Product(productBookId, title, description, price);
 
-        product.Raise(new ProductCreatedDomainEvent(productBookId, product.Id));
-
         return Result.Success(product);
     }
 
@@ -49,8 +47,6 @@ public partial class Product
         }
 
         Title = title;
-
-        Raise(new ProductTitleUpdatedDomainEvent(ProductBookId, Id));
 
         return Result.Success();
     }
@@ -66,8 +62,6 @@ public partial class Product
 
         Description = description;
 
-        Raise(new ProductDescriptionUpdatedDomainEvent(ProductBookId, Id));
-
         return Result.Success();
     }
 
@@ -77,29 +71,8 @@ public partial class Product
         {
             return Result.Failure<Product>(ProductErrors.NegativeValue(nameof(price)));
         }
-               
+
         Price = price;
-
-        Raise(new ProductPriceUpdatedDomainEvent(ProductBookId, Id));
-
-        return Result.Success();
-    }
-
-    public Result IncraseDealCount()
-    {
-        ActiveDealCount++;
-
-        return Result.Success();
-    }
-
-    public Result DecreaseDealCount()
-    {
-        if(ActiveDealCount == 0)
-        {
-            return Result.Failure<Product>(ProductErrors.DealCountZero);
-        }
-
-        ActiveDealCount++;
 
         return Result.Success();
     }

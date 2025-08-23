@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Results;
+﻿using Futions.CRM.Common.Domain.Extensions;
+using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
@@ -6,17 +7,11 @@ public partial class ProductBook
 {
     public static Result<ProductBook> Create(string title)
     {
-
-        if (string.IsNullOrWhiteSpace(title))
+        Result result = title.Validate(nameof(title), 64, "ProductBook");
+        
+        if (result.IsFailure)
         {
-            return Result.Failure<ProductBook>(
-                ProductBookErrors.NullValue(nameof(title)));
-        }
-
-        if (title.Length > 64)
-        {
-            return Result.Failure<ProductBook>(
-                ProductBookErrors.MaxLength(nameof(title), 64));           
+            return Result.Failure<ProductBook>(result.Error);
         }
 
         var productBook = new ProductBook(title);
@@ -28,10 +23,11 @@ public partial class ProductBook
 
     public Result UpdateTitle(string title)
     {
-        if (string.IsNullOrWhiteSpace(title))
+        Result result = title.Validate(nameof(title), 64, "ProductBook");
+
+        if (result.IsFailure)
         {
-            return Result.Failure(
-                ProductBookErrors.NullValue(nameof(title)));
+            return Result.Failure<ProductBook>(result.Error);
         }
 
         Title = title;
@@ -74,5 +70,5 @@ public partial class ProductBook
         Raise(new ProductBookSetActiveDomainEvent(Id));
 
         return Result.Success();
-    }
+    }    
 }

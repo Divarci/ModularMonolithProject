@@ -65,7 +65,12 @@ public partial class ProductBook
             return Result.Failure(ProductErrors.NotFound(productId));
         }
 
-        product.UpdateDescription(description);
+        Result result = product.UpdateDescription(description);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Error);
+        }
 
         return Result.Success();
     }
@@ -84,7 +89,12 @@ public partial class ProductBook
             return Result.Failure(ProductErrors.NotFound(productId));
         }
 
-        product.UpdateTitle(title);
+        Result result = product.UpdateTitle(title);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Error);
+        }
 
         return Result.Success();
     }
@@ -103,7 +113,12 @@ public partial class ProductBook
             return Result.Failure(ProductErrors.NotFound(productId));
         }
 
-        product.UpdatePrice(price);
+        Result result = product.UpdatePrice(price);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Error);
+        }
 
         return Result.Success();
     }

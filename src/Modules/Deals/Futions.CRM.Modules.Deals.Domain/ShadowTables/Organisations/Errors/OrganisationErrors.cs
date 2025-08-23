@@ -4,8 +4,8 @@ namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations.Errors;
 public static partial class OrganisationErrors
 {
     public static Error NotFound(Guid organisationId) => Error.NotFound(
-       "Organisation.NotFound",
-       $"Organisation with ID '{organisationId}' was not found."); 
+        "Organisation.NotFound",
+        $"Organisation with ID '{organisationId}' was not found."); 
 
     public static Error MaxLength(string fieldName, int maxLength) => Error.Validation(
         "Organisation.MaxLength",

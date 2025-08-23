@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
 
-namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 public sealed partial class Product : BaseEntity, IAggregate
 {
     private Product(Guid productBookId, string title, string description, decimal price)
@@ -17,5 +17,4 @@ public sealed partial class Product : BaseEntity, IAggregate
     public decimal Price { get; private set; }
 
     public Guid ProductBookId { get; private set; }
-    public ProductBook ProductBook { get; private set; }
 }

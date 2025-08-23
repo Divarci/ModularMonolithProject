@@ -20,6 +20,8 @@ public sealed partial class DealPerson
 
         var dealPerson = new DealPerson(organisationPersonId, dealId);
 
+        //Raise domain event
+
         return Result.Success(dealPerson);
     }
 }

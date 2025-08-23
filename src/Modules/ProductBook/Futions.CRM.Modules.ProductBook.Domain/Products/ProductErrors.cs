@@ -4,8 +4,8 @@ namespace Futions.CRM.Modules.Catalogue.Domain.Products;
 public static class ProductErrors
 {
     public static Error NotFound(Guid productId) => Error.NotFound(
-    "ProductBook.NotFound",
-    $"Product with ID '{productId}' was not found.");   
+        "Product.NotFound",
+        $"Product with ID '{productId}' was not found.");   
 
     public static Error MaxLength(string fieldName, int maxLength) => Error.Validation(
         "Product.MaxLength",
@@ -18,4 +18,8 @@ public static class ProductErrors
     public static Error NegativeValue(string fieldName) => Error.Validation(
         "Product.NegativeValue",
         $"{fieldName} cannot be negative value.");
+
+    public static readonly Error DealCountZero = Error.Problem(
+        "Product.DealCountZero",
+        "Cannot Decrease deal count. Because current deal count is 0.");
 }

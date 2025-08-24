@@ -1,7 +1,7 @@
 ﻿using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations.Errors;
+using Futions.CRM.Modules.Organisations.Domain.Organisations.Errors;
 
-namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations;
+namespace Futions.CRM.Modules.Organisations.Domain.Organisations;
 public sealed partial class OrganisationPerson
 {
     public static Result<OrganisationPerson> Create(

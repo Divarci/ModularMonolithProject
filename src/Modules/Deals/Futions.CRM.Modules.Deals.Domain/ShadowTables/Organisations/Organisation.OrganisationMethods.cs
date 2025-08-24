@@ -1,6 +1,5 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations.Errors;
 
 namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Organisations;
 public sealed partial class Organisation

@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Results;
 
-namespace Futions.CRM.Modules.People.Domain.People;
+namespace Futions.CRM.Modules.Organisations.Domain.ShadowTables.People.Errors;
 public static class PersonError
 {
     public static Error NotFound(Guid personId) => Error.NotFound(

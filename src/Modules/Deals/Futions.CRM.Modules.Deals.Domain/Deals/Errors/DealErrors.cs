@@ -10,4 +10,12 @@ public static class DealErrors
     public static Error NullValue(string fieldName) => Error.Validation(
         "Deal.NullValue",
         $"{fieldName} cannot be null or empty.");
+
+    public static readonly Error DealIsActive = Error.Problem(
+        "Deal.DealIsActive",
+        $"Deal is already active.");
+
+    public static readonly Error DealIsClosed = Error.Problem(
+       "Deal.DealIsClosed",
+       $"Deal is already closed.");
 }

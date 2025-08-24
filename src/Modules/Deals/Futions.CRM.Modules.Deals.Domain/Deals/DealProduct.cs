@@ -1,5 +1,5 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 
 namespace Futions.CRM.Modules.Deals.Domain.Deals;
 public sealed partial class DealProduct : BaseEntity, IAggregate

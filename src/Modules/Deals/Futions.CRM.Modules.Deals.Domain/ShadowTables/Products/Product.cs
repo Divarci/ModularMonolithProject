@@ -2,7 +2,7 @@
 using Futions.CRM.Modules.Deals.Domain.Deals;
 
 namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
-public sealed partial class Product : BaseEntity, IAggregate
+public sealed partial class Product : BaseEntity, IRootAggregate
 {
     private Product(Guid productBookId, string title, string description, decimal price)
     {

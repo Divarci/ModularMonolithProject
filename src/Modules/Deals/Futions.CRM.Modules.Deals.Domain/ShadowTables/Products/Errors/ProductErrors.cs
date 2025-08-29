@@ -14,4 +14,8 @@ public static class ProductErrors
     public static Error NegativeValue(string fieldName) => Error.Validation(
         "Product.NegativeValue",
         $"{fieldName} cannot be negative value.");
+
+    public static Error HasDealProducts => Error.Validation(
+        "Product.HasDealProducts",
+        $"Product cannot be deleted because it is associated with existing deal products.");
 }

@@ -1,5 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBookEvents;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
 using Futions.CRM.Modules.Catalogue.Domain.Products;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;

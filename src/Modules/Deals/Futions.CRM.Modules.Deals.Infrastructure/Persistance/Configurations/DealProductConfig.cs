@@ -15,6 +15,9 @@ public class DealProductConfig : IEntityTypeConfiguration<DealProduct>
             .IsRequired()
             .HasPrecision(18,2);
 
+        builder.Property(x => x.Discount)
+            .HasPrecision(18, 2);
+
         builder.HasOne(x => x.Product)
             .WithMany(x => x.DealProducts)
             .HasForeignKey(x => x.ProductId)

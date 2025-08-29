@@ -5,7 +5,7 @@ using Futions.CRM.Modules.Deals.Domain.Deals.Errors;
 namespace Futions.CRM.Modules.Deals.Domain.Deals;
 public sealed partial class Deal
 {
-    public Result AddProductToDealProducts(Guid productId, int quantity,
+    public Result<DealProduct> AddProductToDealProducts(Guid productId, int quantity,
         string description, decimal price, decimal discount)
     {
         Result descriptionResult = description.Validate(nameof(description), 512, "Deal Product");
@@ -40,14 +40,14 @@ public sealed partial class Deal
 
         if (result.IsFailure)
         {
-            return Result.Failure(result.Error);
+            return Result.Failure<DealProduct>(result.Error);
         }
 
         _dealProducts.Add(result.Value);
 
         //Raise domain event
 
-        return Result.Success();
+        return Result.Success(result.Value);
     }
 
     public Result RemoveProductFromDealProduct(Guid dealProductId)

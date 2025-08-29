@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Presentation\Futions.CRM.Common.Presentation.csproj" />
+    <ProjectReference Include="..\Futions.CRM.Modules.Deals.Application\Futions.CRM.Modules.Deals.Application.csproj" />
   </ItemGroup>
 </Project>

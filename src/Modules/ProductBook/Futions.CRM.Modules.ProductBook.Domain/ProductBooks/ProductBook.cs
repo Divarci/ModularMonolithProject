@@ -5,6 +5,8 @@ namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 
 public sealed partial class ProductBook : BaseEntity, IRootAggregate
 {
+    private ProductBook() { }
+
     private ProductBook(string title)
     {    
         Id = Guid.NewGuid();

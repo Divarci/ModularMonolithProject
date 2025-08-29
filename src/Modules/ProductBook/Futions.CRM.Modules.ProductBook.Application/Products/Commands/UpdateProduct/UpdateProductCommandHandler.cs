@@ -2,6 +2,7 @@
 using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Application.Products.Commands.UpdateProduct;

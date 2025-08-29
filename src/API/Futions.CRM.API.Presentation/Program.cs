@@ -8,6 +8,7 @@ using Futions.CRM.API.Presentation.Extensions;
 using Futions.CRM.API.Presentation.Middleware;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Futions.CRM.Modules.Deals.Infrastructure;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -19,7 +20,7 @@ builder.Host.UseSerilog((context, LoggerConfiguration) =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-builder.Configuration.AddModuleConfiguration(["catalogue"]);
+builder.Configuration.AddModuleConfiguration(["catalogue", "deal"]);
 
 builder.Services.AddOpenApi();
 
@@ -28,19 +29,20 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 
 Assembly[] moduleApplicationAssemblies = [
-    Futions.CRM.Modules.Catalogue.Application.AssemblyReference.Assembly];
+    Futions.CRM.Modules.Catalogue.Application.AssemblyReference.Assembly,
+    Futions.CRM.Modules.Deals.Application.AssemblyReference.Assembly];
 
 builder.Services.AddApplication(moduleApplicationAssemblies);
-
 builder.Services.AddInfrastructure();
 
-string catalogueConnectionString = builder.Configuration.GetConnectionString("CatalogueDatabase");
+string connectionString = builder.Configuration.GetConnectionString("Database");
 
-builder.Services.AddCatalogueModule(catalogueConnectionString!);
+builder.Services.AddCatalogueModule(connectionString!);
+builder.Services.AddDealModule(connectionString!);
 
 builder.Services.AddHealthChecks()
-    .AddSqlServer(catalogueConnectionString!);
-    
+    .AddSqlServer(connectionString!);
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())

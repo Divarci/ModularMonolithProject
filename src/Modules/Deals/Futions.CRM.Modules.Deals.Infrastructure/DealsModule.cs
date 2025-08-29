@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Futions.CRM.Modules.Deals.Infrastructure;
 public static class DealsModule
 {
-    public static IServiceCollection AddCatalogueModule(
+    public static IServiceCollection AddDealModule(
         this IServiceCollection services, string connectionString)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();

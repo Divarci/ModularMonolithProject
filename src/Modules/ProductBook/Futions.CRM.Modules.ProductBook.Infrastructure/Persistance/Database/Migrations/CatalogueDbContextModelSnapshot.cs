@@ -48,6 +48,9 @@ namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database.Migr
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("ActiveDealCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(512)

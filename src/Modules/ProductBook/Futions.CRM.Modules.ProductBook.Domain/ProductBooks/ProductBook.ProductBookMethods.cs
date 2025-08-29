@@ -1,6 +1,7 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBookEvents;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 public partial class ProductBook

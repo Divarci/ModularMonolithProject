@@ -1,8 +1,8 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products.Errors;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
 
-namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 public partial class Product
 {
     public static Result<Product> Create(

@@ -1,8 +1,8 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
 using Futions.CRM.Modules.Deals.Domain.Deals;
 
-namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
-public sealed partial class Product : BaseEntity, IRootAggregate
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
+public sealed partial class Product : BaseEntity, IAggregate
 {
     private Product(Guid productBookId, string title, string description, decimal price)
     {
@@ -18,6 +18,8 @@ public sealed partial class Product : BaseEntity, IRootAggregate
     public decimal Price { get; private set; }
 
     public Guid ProductBookId { get; private set; }
+    public ProductBook ProductBook { get; private set; }
+
 
     private readonly List<DealProduct> _dealProducts = [];
     public IReadOnlyCollection<DealProduct> DealProducts => _dealProducts.AsReadOnly();

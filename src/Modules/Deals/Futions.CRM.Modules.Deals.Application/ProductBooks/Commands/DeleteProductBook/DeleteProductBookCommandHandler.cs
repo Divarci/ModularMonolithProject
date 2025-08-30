@@ -5,14 +5,14 @@ using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
 using Microsoft.EntityFrameworkCore;
 
-namespace Futions.CRM.Modules.Deals.Application.Products.Commands.DeleteProduct;
-internal sealed class DeleteProductCommandHandler(
-    IDealsUnitOfWork unitOfWork) : ICommandHandler<DeleteProductCommand>
+namespace Futions.CRM.Modules.Deals.Application.ProductBooks.Commands.DeleteProductBook;
+internal sealed class DeleteProductBookCommandHandler(
+    IDealsUnitOfWork unitOfWork) : ICommandHandler<DeleteProductBookCommand>
 {
     private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
-        DeleteProductCommand request, CancellationToken cancellationToken)
+        DeleteProductBookCommand request, CancellationToken cancellationToken)
     {
         ProductBook productBook = await _unitOfWork
             .GetReadRepository<ProductBook>()
@@ -26,14 +26,12 @@ internal sealed class DeleteProductCommandHandler(
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        Result result = productBook.RemoveProduct(request.ProductId);
-
-        if (result.IsFailure)
+        if (productBook.Products.Count > 0)
         {
-            return Result.Failure(result.Error);
+            return Result.Failure(ProductBookErrors.HasProducts);
         }
 
-        _unitOfWork.GetWriteRepository<ProductBook>().Update(productBook);
+        _unitOfWork.GetWriteRepository<ProductBook>().Delete(productBook);
 
         await _unitOfWork.CommitAsync(cancellationToken);
 

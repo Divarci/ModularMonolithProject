@@ -1,7 +1,7 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Deals.Application.Products.Queries.GetAllProductByProductBookId;

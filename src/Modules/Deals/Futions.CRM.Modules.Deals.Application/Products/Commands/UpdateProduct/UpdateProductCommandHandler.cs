@@ -1,8 +1,9 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products.Errors;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
+using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Deals.Application.Products.Commands.UpdateProduct;
 internal sealed class UpdateProductCommandHandler(
@@ -13,8 +14,20 @@ internal sealed class UpdateProductCommandHandler(
     public async Task<Result> Handle(
         UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrEmpty(request.Title) &&
-            string.IsNullOrEmpty(request.Description) &&
+        ProductBook productBook = await _unitOfWork
+            .GetReadRepository<ProductBook>()
+            .Query(query => query
+                .Include(x => x.Products)
+                .SingleOrDefaultAsync(x => x.Id == request.ProductBookId, cancellationToken)
+            );
+
+        if (productBook is null)
+        {
+            return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
+        }
+
+        if (string.IsNullOrEmpty(request.Title) && 
+            string.IsNullOrEmpty(request.Description) && 
             !request.Price.HasValue)
         {
             return Result.Failure(Error.Conflict(
@@ -22,20 +35,11 @@ internal sealed class UpdateProductCommandHandler(
                 "All fields can not be null or empty"));
         }
 
-        Product product = await _unitOfWork
-            .GetReadRepository<Product>()
-            .GetByIdAsync(request.ProductId, cancellationToken);
-
-        if (product is null)
-        {
-            return Result.Failure(ProductErrors.NotFound(request.ProductId));
-        }
-
         if (!string.IsNullOrEmpty(request.Title))
         {
-            Result result = product.UpdateTitle(request.Title);
+            Result result = productBook.UpdateProductTitle(request.ProductId, request.Title);
 
-            if (result.IsFailure)
+            if(result.IsFailure)
             {
                 return Result.Failure(result.Error);
             }
@@ -43,7 +47,7 @@ internal sealed class UpdateProductCommandHandler(
 
         if (!string.IsNullOrEmpty(request.Description))
         {
-            Result result = product.UpdateDescription(request.Description);
+            Result result = productBook.UpdateProductDescription(request.ProductId, request.Description);
 
             if (result.IsFailure)
             {
@@ -53,7 +57,7 @@ internal sealed class UpdateProductCommandHandler(
 
         if (request.Price.HasValue)
         {
-            Result result = product.UpdatePrice(request.Price.Value);
+            Result result = productBook.UpdateProductPrice(request.ProductId, request.Price.Value);
 
             if (result.IsFailure)
             {
@@ -62,8 +66,8 @@ internal sealed class UpdateProductCommandHandler(
         }
 
         _unitOfWork
-           .GetWriteRepository<Product>()
-           .Update(product);
+           .GetWriteRepository<ProductBook>()
+           .Update(productBook);
 
         await _unitOfWork.CommitAsync(cancellationToken);
 

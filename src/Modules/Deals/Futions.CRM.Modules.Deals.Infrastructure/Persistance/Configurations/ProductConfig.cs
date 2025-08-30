@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
+﻿using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

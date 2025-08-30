@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Results;
 
-namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.Products.Errors;
+namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
 public static class ProductErrors
 {
     public static Error NotFound(Guid productId) => Error.NotFound(

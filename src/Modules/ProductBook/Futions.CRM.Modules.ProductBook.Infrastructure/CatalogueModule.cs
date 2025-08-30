@@ -1,5 +1,5 @@
-﻿using Futions.CRM.Common.Domain.IUnitOfWorks;
-using Futions.CRM.Common.Presentation.Endpoints;
+﻿using Futions.CRM.Common.Presentation.Endpoints;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Catalogue.Infrastructure.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ public static class CatalogueModule
     public static IServiceCollection AddCatalogueModule(
         this IServiceCollection services, string connectionString)
     {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ICatalogueUnitOfWork, CatalogueUnitOfWork>();
 
         services.AddDbContext<CatalogueDbContext>(options =>
         {

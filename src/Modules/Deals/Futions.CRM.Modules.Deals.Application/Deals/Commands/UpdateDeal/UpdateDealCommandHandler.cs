@@ -1,14 +1,15 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.Deals;
 using Futions.CRM.Modules.Deals.Domain.Deals.Errors;
 
 namespace Futions.CRM.Modules.Deals.Application.Deals.Commands.UpdateDeal;
 internal sealed class UpdateDealCommandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<UpdateDealCommand>
+    IDealsUnitOfWork unitOfWork)
+    : ICommandHandler<UpdateDealCommand>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
         UpdateDealCommand request, CancellationToken cancellationToken)

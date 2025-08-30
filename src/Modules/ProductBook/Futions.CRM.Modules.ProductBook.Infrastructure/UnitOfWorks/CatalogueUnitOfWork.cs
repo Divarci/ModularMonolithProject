@@ -2,12 +2,13 @@
 using Futions.CRM.Common.Domain.IGenericRepositories;
 using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
-using Futions.CRM.Modules.Deals.Infrastructure.Persistance.Database;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
+using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 
-namespace Futions.CRM.Modules.Deals.Infrastructure.UnitOfWorks;
-public class UnitOfWork(DealsDbContext context) : IUnitOfWork
+namespace Futions.CRM.Modules.Catalogue.Infrastructure.UnitOfWorks;
+public class CatalogueUnitOfWork(CatalogueDbContext context) : ICatalogueUnitOfWork
 {
-    private readonly DealsDbContext _context = context;
+    private readonly CatalogueDbContext _context = context;
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);

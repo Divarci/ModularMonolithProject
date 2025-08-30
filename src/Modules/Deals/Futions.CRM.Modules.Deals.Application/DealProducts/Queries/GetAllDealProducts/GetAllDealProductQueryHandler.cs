@@ -1,14 +1,15 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.Deals;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Deals.Application.DealProducts.Queries.GetAllDealProducts;
 internal sealed class GetAllDealProductQueryHandler(
-    IUnitOfWork unitOfWork) : IQueryHandler<GetAllDealProductQuery, DealProductDto[]>
+    IDealsUnitOfWork unitOfWork) 
+    : IQueryHandler<GetAllDealProductQuery, DealProductDto[]>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result<DealProductDto[]>> Handle(
         GetAllDealProductQuery request, CancellationToken cancellationToken)

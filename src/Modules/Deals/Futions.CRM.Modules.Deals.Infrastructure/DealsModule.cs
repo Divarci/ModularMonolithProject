@@ -1,5 +1,5 @@
-﻿using Futions.CRM.Common.Domain.IUnitOfWorks;
-using Futions.CRM.Common.Presentation.Endpoints;
+﻿using Futions.CRM.Common.Presentation.Endpoints;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Deals.Infrastructure.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ public static class DealsModule
     public static IServiceCollection AddDealModule(
         this IServiceCollection services, string connectionString)
     {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IDealsUnitOfWork, DealsUnitOfWork>();
 
         services.AddDbContext<DealsDbContext>(options =>
         {

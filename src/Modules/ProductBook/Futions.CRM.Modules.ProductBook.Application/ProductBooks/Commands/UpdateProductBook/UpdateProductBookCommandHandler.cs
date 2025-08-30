@@ -1,14 +1,15 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
 
 namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.UpdateProductBook;
 internal sealed class UpdateProductBookCommandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<UpdateProductBookCommand>
+    ICatalogueUnitOfWork unitOfWork) : ICommandHandler<UpdateProductBookCommand>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ICatalogueUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
         UpdateProductBookCommand request, CancellationToken cancellationToken)

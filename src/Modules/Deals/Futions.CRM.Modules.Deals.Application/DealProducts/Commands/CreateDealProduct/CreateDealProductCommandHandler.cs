@@ -1,15 +1,16 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.Deals;
 using Futions.CRM.Modules.Deals.Domain.Deals.Errors;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Deals.Application.DealProducts.Commands.CreateDealProduct;
 internal sealed class CreateDealProductCommandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<CreateDealProductCommand, DealProduct>
+    IDealsUnitOfWork unitOfWork)
+    : ICommandHandler<CreateDealProductCommand, DealProduct>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result<DealProduct>> Handle(
         CreateDealProductCommand request, CancellationToken cancellationToken)

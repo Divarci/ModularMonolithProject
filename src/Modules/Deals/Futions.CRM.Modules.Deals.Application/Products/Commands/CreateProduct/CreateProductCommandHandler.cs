@@ -1,13 +1,14 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 
 namespace Futions.CRM.Modules.Deals.Application.Products.Commands.CreateProduct;
 internal sealed class CreateProductCommandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<CreateProductCommand, Product>
+    IDealsUnitOfWork unitOfWork) 
+    : ICommandHandler<CreateProductCommand, Product>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result<Product>> Handle(
         CreateProductCommand request, CancellationToken cancellationToken)

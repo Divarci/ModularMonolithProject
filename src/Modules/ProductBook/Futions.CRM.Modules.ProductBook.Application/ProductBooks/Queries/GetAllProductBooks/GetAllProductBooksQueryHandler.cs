@@ -1,12 +1,13 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.GetAllProductBooks;
 internal sealed class GetAllProductBooksQueryHandler(
-    IUnitOfWork unitOfWork) : IQueryHandler<GetAllProductBooksQuery, ProductBookDto[]>
+    ICatalogueUnitOfWork unitOfWork) : IQueryHandler<GetAllProductBooksQuery, ProductBookDto[]>
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 

@@ -1,15 +1,16 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products.Errors;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Deals.Application.Products.Commands.DeleteProduct;
 internal sealed class DeleteProductCommandHandler(
-    IUnitOfWork unitOfWork) : ICommandHandler<DeleteProductCommand>
+    IDealsUnitOfWork unitOfWork)
+    : ICommandHandler<DeleteProductCommand>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
         DeleteProductCommand request, CancellationToken cancellationToken)

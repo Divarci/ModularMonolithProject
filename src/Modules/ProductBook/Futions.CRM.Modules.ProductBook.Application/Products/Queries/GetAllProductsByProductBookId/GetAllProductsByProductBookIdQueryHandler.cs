@@ -1,14 +1,14 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Application.Products.Queries.GetAllProductsByProductBookId;
 internal sealed class GetAllProductsByProductBookIdQueryHandler(
-    IUnitOfWork unitOfWork) : IQueryHandler<GetAllProductsByProductBookIdQuery, ProductDto[]>
+    ICatalogueUnitOfWork unitOfWork) : IQueryHandler<GetAllProductsByProductBookIdQuery, ProductDto[]>
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ICatalogueUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result<ProductDto[]>> Handle(
         GetAllProductsByProductBookIdQuery request, CancellationToken cancellationToken)

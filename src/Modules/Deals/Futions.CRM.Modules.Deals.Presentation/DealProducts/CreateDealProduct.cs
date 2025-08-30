@@ -17,7 +17,7 @@ internal sealed class CreateDealProduct : IEndpoint
         app.MapPost("/deals/{dealId:guid}/products",
             async (Guid dealId, CreateDealProductDto request, ISender sender, CancellationToken cancellationToken) =>
         {
-            Result<DealProduct> result = await sender.Send(
+            Result<Guid> result = await sender.Send(
                 new CreateDealProductCommand(dealId, request.ProductId, request.Quantity,
                 request.Description, request.Price, request.Discount), cancellationToken);
 

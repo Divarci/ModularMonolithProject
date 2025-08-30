@@ -1,5 +1,4 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
@@ -9,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Application.Products.Commands.CreateProduct;
 internal sealed class CreateProductCommandHandler(
-    ICatalogueUnitOfWork unitOfWork) : ICommandHandler<CreateProductCommand, Product>
+    ICatalogueUnitOfWork unitOfWork) : ICommandHandler<CreateProductCommand, Guid>
 {
     private readonly ICatalogueUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<Result<Product>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateProductCommand request, CancellationToken cancellationToken)
     {
         ProductBook productBook = await _unitOfWork
@@ -25,7 +24,7 @@ internal sealed class CreateProductCommandHandler(
 
         if (productBook is null)
         {
-            return Result.Failure<Product>(ProductBookErrors.NotFound(request.ProductBookId));
+            return Result.Failure<Guid>(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
         Result<Product> result = Product.Create(
@@ -36,7 +35,7 @@ internal sealed class CreateProductCommandHandler(
 
         if (result.IsFailure)
         {
-            return Result.Failure<Product>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         productBook.AddProduct(result.Value);
@@ -47,6 +46,6 @@ internal sealed class CreateProductCommandHandler(
         
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return Result.Success(result.Value);
+        return Result.Success(result.Value.Id);
     }
 }

@@ -5,18 +5,18 @@ using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
 
 namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.CreateProductBook;
 internal sealed class CreateProductBookCommandHandler(
-    ICatalogueUnitOfWork unitOfWOrk) : ICommandHandler<CreateProductBookCommand, ProductBook>
+    ICatalogueUnitOfWork unitOfWOrk) : ICommandHandler<CreateProductBookCommand, Guid>
 {
     private readonly ICatalogueUnitOfWork _unitOfWOrk = unitOfWOrk;
 
-    public async Task<Result<ProductBook>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateProductBookCommand request, CancellationToken cancellationToken)
     {
         Result<ProductBook> result = ProductBook.Create(request.Title);
 
         if (result.IsFailure)
         {
-            return Result.Failure<ProductBook>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         await _unitOfWOrk
@@ -25,6 +25,6 @@ internal sealed class CreateProductBookCommandHandler(
 
         await _unitOfWOrk.CommitAsync(cancellationToken);
 
-        return Result.Success(result.Value);
+        return Result.Success(result.Value.Id);
     }
 }

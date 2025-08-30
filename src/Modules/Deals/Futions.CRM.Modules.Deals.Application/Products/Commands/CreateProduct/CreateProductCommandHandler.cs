@@ -6,11 +6,11 @@ using Futions.CRM.Modules.Deals.Domain.ShadowTables.Products;
 namespace Futions.CRM.Modules.Deals.Application.Products.Commands.CreateProduct;
 internal sealed class CreateProductCommandHandler(
     IDealsUnitOfWork unitOfWork) 
-    : ICommandHandler<CreateProductCommand, Product>
+    : ICommandHandler<CreateProductCommand, Guid>
 {
     private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<Result<Product>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateProductCommand request, CancellationToken cancellationToken)
     {
         Result<Product> result = Product.Create(
@@ -21,7 +21,7 @@ internal sealed class CreateProductCommandHandler(
 
         if (result.IsFailure)
         {
-            return Result.Failure<Product>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         await _unitOfWork
@@ -30,6 +30,6 @@ internal sealed class CreateProductCommandHandler(
 
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return Result.Success(result.Value);
+        return Result.Success(result.Value.Id);
     }
 }

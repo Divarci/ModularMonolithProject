@@ -20,7 +20,7 @@ internal sealed class CreateProduct : IEndpoint
             var command = new CreateProductCommand(
                 id, request.Title, request.Description, request.Price);
 
-            Result<Product> result = await sender.Send(command, cancellationToken);
+            Result<Guid> result = await sender.Send(command, cancellationToken);
 
             return result.Match(Results.Ok, ApiResults.Problem);
         });

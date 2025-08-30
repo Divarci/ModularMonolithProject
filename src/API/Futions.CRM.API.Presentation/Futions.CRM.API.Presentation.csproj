@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Common\Futions.CRM.Common.Presentation\Futions.CRM.Common.Presentation.csproj" />
     <ProjectReference Include="..\..\Modules\Deals\Futions.CRM.Modules.Deals.Infrastructure\Futions.CRM.Modules.Deals.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\ProductBook\Futions.CRM.Modules.ProductBook.Infrastructure\Futions.CRM.Modules.Catalogue.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Futions.CRM.Modules.Users.Infrastructure\Futions.CRM.Modules.Users.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

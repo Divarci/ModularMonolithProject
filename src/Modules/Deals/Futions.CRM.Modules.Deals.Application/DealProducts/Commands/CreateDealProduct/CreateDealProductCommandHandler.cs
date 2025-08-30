@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 namespace Futions.CRM.Modules.Deals.Application.DealProducts.Commands.CreateDealProduct;
 internal sealed class CreateDealProductCommandHandler(
     IDealsUnitOfWork unitOfWork)
-    : ICommandHandler<CreateDealProductCommand, DealProduct>
+    : ICommandHandler<CreateDealProductCommand, Guid>
 {
     private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<Result<DealProduct>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateDealProductCommand request, CancellationToken cancellationToken)
     {
         Deal deal = await _unitOfWork
@@ -23,7 +23,7 @@ internal sealed class CreateDealProductCommandHandler(
 
         if (deal is null)
         {
-            return Result.Failure<DealProduct>(DealErrors.NotFound(request.DealId));
+            return Result.Failure<Guid>(DealErrors.NotFound(request.DealId));
         }
 
         Result<DealProduct> result = deal.AddProductToDealProducts(request.ProductId, request.Quantity, 
@@ -31,7 +31,7 @@ internal sealed class CreateDealProductCommandHandler(
 
         if(result.IsFailure)
         {
-            return Result.Failure<DealProduct>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         _unitOfWork.GetWriteRepository<Deal>()
@@ -39,6 +39,6 @@ internal sealed class CreateDealProductCommandHandler(
 
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return Result.Success(result.Value);
+        return Result.Success(result.Value.Id);
     }
 }

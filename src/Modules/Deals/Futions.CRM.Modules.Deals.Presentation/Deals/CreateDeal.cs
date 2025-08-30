@@ -2,7 +2,6 @@
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Common.Presentation.Results;
 using Futions.CRM.Modules.Deals.Application.Deals.Commands.CreateDeal;
-using Futions.CRM.Modules.Deals.Domain.Deals;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +19,7 @@ internal sealed class CreateDeal : IEndpoint
             {
                 var command = new CreateDealCommand(request.Title);
 
-                Result<Deal> result = await sender.Send(command, cancellationToken);
+                Result<Guid> result = await sender.Send(command, cancellationToken);
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })

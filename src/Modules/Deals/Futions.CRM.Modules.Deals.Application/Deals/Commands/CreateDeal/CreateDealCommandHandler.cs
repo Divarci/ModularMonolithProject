@@ -6,18 +6,18 @@ using Futions.CRM.Modules.Deals.Domain.Deals;
 namespace Futions.CRM.Modules.Deals.Application.Deals.Commands.CreateDeal;
 internal sealed class CreateDealCommandHandler(
     IDealsUnitOfWork unitOfWork)
-    : ICommandHandler<CreateDealCommand, Deal>
+    : ICommandHandler<CreateDealCommand, Guid>
 {
     private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<Result<Deal>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateDealCommand request, CancellationToken cancellationToken)
     {
         Result<Deal> result = Deal.Create(request.Title);
 
         if (result.IsFailure)
         {
-            return Result.Failure<Deal>(result.Error);
+            return Result.Failure<Guid>(result.Error);
         }
 
         await _unitOfWork
@@ -26,6 +26,6 @@ internal sealed class CreateDealCommandHandler(
 
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return Result.Success(result.Value);
+        return Result.Success(result.Value.Id);
     }
 }

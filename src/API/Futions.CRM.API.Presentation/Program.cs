@@ -9,6 +9,7 @@ using Futions.CRM.API.Presentation.Middleware;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Futions.CRM.Modules.Deals.Infrastructure;
+using Futions.CRM.Modules.Users.Infrastructure;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,7 @@ builder.Host.UseSerilog((context, LoggerConfiguration) =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-builder.Configuration.AddModuleConfiguration(["catalogue", "deal"]);
+builder.Configuration.AddModuleConfiguration(["catalogue", "deals", "users"]);
 
 builder.Services.AddOpenApi();
 
@@ -30,7 +31,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 Assembly[] moduleApplicationAssemblies = [
     Futions.CRM.Modules.Catalogue.Application.AssemblyReference.Assembly,
-    Futions.CRM.Modules.Deals.Application.AssemblyReference.Assembly];
+    Futions.CRM.Modules.Deals.Application.AssemblyReference.Assembly,
+    Futions.CRM.Modules.Users.Application.AssemblyReference.Assembly];
 
 builder.Services.AddApplication(moduleApplicationAssemblies);
 builder.Services.AddInfrastructure();
@@ -39,6 +41,7 @@ string connectionString = builder.Configuration.GetConnectionString("Database");
 
 builder.Services.AddCatalogueModule(connectionString!);
 builder.Services.AddDealModule(connectionString!);
+builder.Services.AddUsersModule(connectionString!);
 
 builder.Services.AddHealthChecks()
     .AddSqlServer(connectionString!);

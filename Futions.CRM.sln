@@ -49,6 +49,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Deals.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Deals.Presentation", "src\Modules\Deals\Futions.CRM.Modules.Deals.Presentation\Futions.CRM.Modules.Deals.Presentation.csproj", "{4543CA7F-A4B7-4BB0-8D3D-EAE85E5F5053}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{DD4A0FA6-541B-4C23-A347-DD9001348E83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Users.Application", "src\Modules\Users\Futions.CRM.Modules.Users.Application\Futions.CRM.Modules.Users.Application.csproj", "{6D516829-BF57-4810-9C7B-96DE37EE0AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Users.Domain", "src\Modules\Users\Futions.CRM.Modules.Users.Domain\Futions.CRM.Modules.Users.Domain.csproj", "{A11B2F7D-C146-4314-AF54-8078A32A119D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Users.Infrastructure", "src\Modules\Users\Futions.CRM.Modules.Users.Infrastructure\Futions.CRM.Modules.Users.Infrastructure.csproj", "{EE2874B9-D192-466F-BBC2-B002B2E38822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futions.CRM.Modules.Users.Presentation", "src\Modules\Users\Futions.CRM.Modules.Users.Presentation\Futions.CRM.Modules.Users.Presentation.csproj", "{9FE46172-1C35-4609-968F-CD2F111B37A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +121,22 @@ Global
 		{4543CA7F-A4B7-4BB0-8D3D-EAE85E5F5053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4543CA7F-A4B7-4BB0-8D3D-EAE85E5F5053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4543CA7F-A4B7-4BB0-8D3D-EAE85E5F5053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D516829-BF57-4810-9C7B-96DE37EE0AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D516829-BF57-4810-9C7B-96DE37EE0AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D516829-BF57-4810-9C7B-96DE37EE0AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D516829-BF57-4810-9C7B-96DE37EE0AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A11B2F7D-C146-4314-AF54-8078A32A119D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11B2F7D-C146-4314-AF54-8078A32A119D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11B2F7D-C146-4314-AF54-8078A32A119D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11B2F7D-C146-4314-AF54-8078A32A119D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2874B9-D192-466F-BBC2-B002B2E38822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2874B9-D192-466F-BBC2-B002B2E38822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2874B9-D192-466F-BBC2-B002B2E38822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2874B9-D192-466F-BBC2-B002B2E38822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE46172-1C35-4609-968F-CD2F111B37A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE46172-1C35-4609-968F-CD2F111B37A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE46172-1C35-4609-968F-CD2F111B37A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE46172-1C35-4609-968F-CD2F111B37A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +160,11 @@ Global
 		{A4F66325-19D4-4A57-93EE-F58C362D1409} = {3B0F05B3-101A-460A-A7C9-0941307F4E6A}
 		{C26A5263-4EDE-47D2-899F-BECF89073F5F} = {3B0F05B3-101A-460A-A7C9-0941307F4E6A}
 		{4543CA7F-A4B7-4BB0-8D3D-EAE85E5F5053} = {3B0F05B3-101A-460A-A7C9-0941307F4E6A}
+		{DD4A0FA6-541B-4C23-A347-DD9001348E83} = {171D67A8-4C89-43A0-A90F-14E0E2C48667}
+		{6D516829-BF57-4810-9C7B-96DE37EE0AAB} = {DD4A0FA6-541B-4C23-A347-DD9001348E83}
+		{A11B2F7D-C146-4314-AF54-8078A32A119D} = {DD4A0FA6-541B-4C23-A347-DD9001348E83}
+		{EE2874B9-D192-466F-BBC2-B002B2E38822} = {DD4A0FA6-541B-4C23-A347-DD9001348E83}
+		{9FE46172-1C35-4609-968F-CD2F111B37A0} = {DD4A0FA6-541B-4C23-A347-DD9001348E83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB4246C6-FF5D-41B8-8C93-A8580135A4CC}

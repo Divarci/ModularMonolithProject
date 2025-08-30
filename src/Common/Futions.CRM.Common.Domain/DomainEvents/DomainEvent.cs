@@ -1,5 +1,5 @@
-﻿
-namespace Futions.CRM.Common.Domain.DomainEvents;
+﻿namespace Futions.CRM.Common.Domain.DomainEvents;
+
 public abstract class DomainEvent : IDomainEvent
 {
     protected DomainEvent()

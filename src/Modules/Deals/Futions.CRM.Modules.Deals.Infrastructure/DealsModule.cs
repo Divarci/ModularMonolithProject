@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Presentation.Endpoints;
+﻿using Futions.CRM.Common.Infrastructure.Interceptors;
+using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Deals.Infrastructure.UnitOfWorks;
@@ -13,9 +14,10 @@ public static class DealsModule
     {
         services.AddScoped<IDealsUnitOfWork, DealsUnitOfWork>();
 
-        services.AddDbContext<DealsDbContext>(options =>
+        services.AddDbContext<DealsDbContext>((sp, options) =>
         {
             options.UseSqlServer(connectionString);
+            options.AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);

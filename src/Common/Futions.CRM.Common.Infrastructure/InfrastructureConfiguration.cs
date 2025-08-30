@@ -1,5 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.IGenericRepositories;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
+using Futions.CRM.Common.Infrastructure.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Futions.CRM.Common.Infrastructure;
@@ -9,6 +10,8 @@ public static class InfrastructureConfiguration
     {
         AddRepositories(services);
 
+        AddInterceptors(services);  
+
         return services;
     }
 
@@ -16,5 +19,10 @@ public static class InfrastructureConfiguration
     {
         services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
         services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+    }
+
+    private static void AddInterceptors(IServiceCollection services)
+    {
+        services.AddSingleton<PublishDomainEventsInterceptor>();
     }
 }

@@ -1,5 +1,7 @@
-﻿namespace Futions.CRM.Common.Domain.DomainEvents;
-public interface IDomainEvent
+﻿using MediatR;
+
+namespace Futions.CRM.Common.Domain.DomainEvents;
+public interface IDomainEvent : INotification
 {
     Guid Id { get; }
 

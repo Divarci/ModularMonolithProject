@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Presentation.Endpoints;
+﻿using Futions.CRM.Common.Infrastructure.Interceptors;
+using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Catalogue.Infrastructure.UnitOfWorks;
@@ -13,15 +14,14 @@ public static class CatalogueModule
     {
         services.AddScoped<ICatalogueUnitOfWork, CatalogueUnitOfWork>();
 
-        services.AddDbContext<CatalogueDbContext>(options =>
+        services.AddDbContext<CatalogueDbContext>((sp,options) =>
         {
             options.UseSqlServer(connectionString);
+            options.AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
         return services;
-
-
     }
 }

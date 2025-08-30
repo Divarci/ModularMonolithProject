@@ -1,14 +1,20 @@
-﻿using Futions.CRM.Common.Domain.IGenericRepositories;
+﻿using Futions.CRM.Common.Application.EventBus;
+using Futions.CRM.Common.Domain.IGenericRepositories;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
+using MassTransit;
 using Futions.CRM.Common.Infrastructure.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Futions.CRM.Common.Infrastructure;
 public static class InfrastructureConfiguration
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        Action<IRegistrationConfigurator>[] moduleConfigureConsumers)
     {
         AddRepositories(services);
+
+        AddEventBus(services, moduleConfigureConsumers);
 
         AddInterceptors(services);  
 
@@ -19,6 +25,28 @@ public static class InfrastructureConfiguration
     {
         services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
         services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+    }
+
+    private static void AddEventBus(
+        IServiceCollection services,
+        Action<IRegistrationConfigurator>[] moduleConfigureConsumers)
+    {
+        services.AddSingleton<IEventBus, EventBus.EventBus>();
+
+        services.AddMassTransit(configure =>
+        {
+            foreach (Action<IRegistrationConfigurator> configureConsumer in moduleConfigureConsumers)
+            {
+                configureConsumer(configure);
+            }
+
+            configure.SetKebabCaseEndpointNameFormatter();
+
+            configure.UsingInMemory((context, cfg) =>
+            {
+                cfg.ConfigureEndpoints(context);
+            });
+        });
     }
 
     private static void AddInterceptors(IServiceCollection services)

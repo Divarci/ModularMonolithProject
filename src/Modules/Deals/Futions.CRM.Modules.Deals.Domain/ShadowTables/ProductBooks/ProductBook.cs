@@ -6,9 +6,9 @@ public sealed partial class ProductBook : BaseEntity, IRootAggregate
 {
     private ProductBook() { }
 
-    private ProductBook(string title)
+    private ProductBook(Guid id, string title)
     {    
-        Id = Guid.NewGuid();
+        Id = id;
         Title = title;
         Inactive = false;
     }

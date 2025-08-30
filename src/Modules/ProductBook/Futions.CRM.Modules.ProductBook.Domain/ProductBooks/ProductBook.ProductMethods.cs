@@ -26,8 +26,6 @@ public partial class ProductBook
 
         _products.Add(product);
 
-        Raise(new ProductAddedToProductBookDomainEvent(Id, product.Id));
-
         return Result.Success();
     }
 

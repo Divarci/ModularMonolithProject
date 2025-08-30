@@ -35,7 +35,11 @@ Assembly[] moduleApplicationAssemblies = [
     Futions.CRM.Modules.Users.Application.AssemblyReference.Assembly];
 
 builder.Services.AddApplication(moduleApplicationAssemblies);
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(
+    [
+        DealsModule.ConfigureConsumers,
+        CatalogueModule.ConfigureConsumers
+    ]);
 
 string connectionString = builder.Configuration.GetConnectionString("Database");
 

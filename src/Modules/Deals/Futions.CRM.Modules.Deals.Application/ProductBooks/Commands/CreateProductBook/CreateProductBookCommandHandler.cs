@@ -12,7 +12,7 @@ internal sealed class CreateProductBookCommandHandler(
     public async Task<Result<Guid>> Handle(
         CreateProductBookCommand request, CancellationToken cancellationToken)
     {
-        Result<ProductBook> result = ProductBook.Create(request.Title);
+        Result<ProductBook> result = ProductBook.Create(request.ProductBookId, request.Title);
 
         if (result.IsFailure)
         {

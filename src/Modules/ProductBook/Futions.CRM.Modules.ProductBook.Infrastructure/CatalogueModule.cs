@@ -3,6 +3,7 @@ using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Catalogue.Infrastructure.UnitOfWorks;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,5 +24,10 @@ public static class CatalogueModule
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
         return services;
+    }
+
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        //registrationConfigurator.AddConsumer<Int-Evnt-Consumer>;
     }
 }

@@ -2,6 +2,7 @@
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Common.Presentation.Results;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.GetAllProductBooks;
+using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.Shared.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

@@ -5,7 +5,7 @@ using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
 namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 public partial class ProductBook
 {
-    public static Result<ProductBook> Create(string title)
+    public static Result<ProductBook> Create(Guid id, string title)
     {
         Result result = title.Validate(nameof(title), 64, "ProductBook");
         
@@ -14,7 +14,7 @@ public partial class ProductBook
             return Result.Failure<ProductBook>(result.Error);
         }
 
-        var productBook = new ProductBook(title);
+        var productBook = new ProductBook(id, title);
 
         return Result.Success(productBook);
     }

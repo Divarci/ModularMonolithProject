@@ -3,6 +3,8 @@ using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Deals.Infrastructure.UnitOfWorks;
+using Futions.CRM.Modules.Deals.Presentation.ProductBooks;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +25,10 @@ public static class DealsModule
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
         return services;
+    }
 
-
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<ProductBookCreatedIntegrationEventConsumer>();
     }
 }

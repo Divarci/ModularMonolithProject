@@ -19,7 +19,11 @@ internal sealed class ExceptionHandlingPipelineBehaviour<TRequest, TResponse>(
         }
         catch (Exception exception)
         {
-            logger.LogError(exception, "Unhandled exception for {RequestName}", typeof(TRequest).Name);
+            string errorMessage = string.IsNullOrWhiteSpace(exception.Message) 
+                ? $"Unhandled exception for {typeof(TRequest).Name}"
+                : exception.Message;
+
+            logger.LogError(exception,"{ErrorMessage}",errorMessage);
 
             throw new CrmException(typeof(TRequest).Name, innerException: exception);
         }

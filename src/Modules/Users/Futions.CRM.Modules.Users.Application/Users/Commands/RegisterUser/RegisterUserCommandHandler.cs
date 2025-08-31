@@ -5,14 +5,25 @@ using Futions.CRM.Modules.Users.Domain.Users;
 
 namespace Futions.CRM.Modules.Users.Application.Users.Commands.RegisterUser;
 internal sealed class RegisterUserCommandHandler(
-    IUsersUnitOfWork unitOfWork) : ICommandHandler<RegisterUserCommand, Guid>
+    IUsersUnitOfWork unitOfWork,
+    IIdentityProviderService identityProvider) : ICommandHandler<RegisterUserCommand, Guid>
 {
     private readonly IUsersUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IIdentityProviderService _identityProvider = identityProvider;
 
     public async Task<Result<Guid>> Handle(
         RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        Result<User> result = User.Create(request.Email, request.Fullname);
+        Result<string> identityResult = await _identityProvider.RegisterUserAsync(
+            request.Firstname, request.Lastname, request.Email, request.Password, cancellationToken);
+
+        if (identityResult.IsFailure)
+        {
+            return Result.Failure<Guid>(identityResult.Error);
+        }
+
+        Result<User> result = User.Create(request.Email, 
+            request.Firstname, request.Lastname, identityResult.Value);
 
         if (result.IsFailure)
         {

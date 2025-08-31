@@ -1,3 +1,11 @@
 {
-  "AllowedHosts": "*"
+  "Users": {
+    "KeyCloak": {
+      "AdminUrl": "http://futions.identity:8080/admin/realms/FutionsCrm/",
+      "TokenUrl": "http://futions.identity:8080/realms/FutionsCrm/protocol/openid-connect/token",
+      "ConfidentialClientId": "futionsCrm-confidential-client",
+      "ConfidentialClientSecret": "bSCB3v3nT3yWlkLnX1SrA9yHAxI8HzIL",
+      "PublicClientId": "futionsCrm-public-client"
+    }
+  }
 }

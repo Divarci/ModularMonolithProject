@@ -6,7 +6,10 @@ public class UpdateUserValidator : AbstractValidator<RegisterUserCommand>
 {
     public UpdateUserValidator()
     {
-        RuleFor(x => x.Fullname)
+        RuleFor(x => x.Firstname)
+            .MaximumLength(64);
+
+        RuleFor(x => x.Firstname)
             .MaximumLength(64);
 
         RuleFor(x => x.Email)

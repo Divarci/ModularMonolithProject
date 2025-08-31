@@ -25,7 +25,8 @@ internal sealed class GetUserByIdQueryHandler(
         {
             Id = user.Id,
             Email = user.Email,
-            Fullname = user.Fullname,
+            Firstname = user.Firstname,
+            Lastname = user.Lastname
         });
     }
 }

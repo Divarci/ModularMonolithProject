@@ -18,7 +18,8 @@ internal sealed class UpdateUser : IEndpoint
             ISender sender, CancellationToken cancellationToken = default) =>
             {
                 Result result = await sender.Send(
-                    new UpdateUserCommand(id, request.Email, request.Fullname), cancellationToken);
+                    new UpdateUserCommand(id, request.Email, request.Firstname, 
+                    request.Lastname), cancellationToken);
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })
@@ -29,8 +30,11 @@ internal sealed class UpdateUser : IEndpoint
 
 internal sealed record UpdateUserDto
 {
-    [JsonProperty("fullname")]
-    public string Fullname { get; init; }
+    [JsonProperty("firstname")]
+    public string Firstname { get; init; }
+
+    [JsonProperty("lastname")]
+    public string Lastname { get; init; }
 
     [JsonProperty("email")]
     public string Email { get; init; }

@@ -3,4 +3,6 @@
 namespace Futions.CRM.Modules.Users.Application.Users.Commands.RegisterUser;
 public record RegisterUserCommand(
     string Email,
-    string Fullname) : ICommand<Guid>;
+    string Firstname,
+    string Lastname,
+    string Password) : ICommand<Guid>;

@@ -23,7 +23,9 @@ internal sealed class UpdateUserCommandHandler(
                 UserErrors.NotFound(request.UserId));
         }
 
-        if (string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrWhiteSpace(request.Fullname))
+        if (string.IsNullOrWhiteSpace(request.Email) && 
+            string.IsNullOrWhiteSpace(request.Firstname) && 
+            string.IsNullOrWhiteSpace(request.Lastname))
         {
             return Result.Failure(
                 UserErrors.NothingToUpdate);
@@ -39,9 +41,19 @@ internal sealed class UpdateUserCommandHandler(
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(request.Fullname))
+        if (!string.IsNullOrWhiteSpace(request.Firstname))
         {
-            Result result = user.UpdateFulname(request.Fullname);
+            Result result = user.UpdateFirstname(request.Firstname);
+
+            if (result.IsFailure)
+            {
+                return Result.Failure(result.Error);
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.Lastname))
+        {
+            Result result = user.UpdateFirstname(request.Lastname);
 
             if (result.IsFailure)
             {

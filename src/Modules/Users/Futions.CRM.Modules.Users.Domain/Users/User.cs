@@ -5,13 +5,18 @@ public sealed partial class User : BaseEntity, IRootAggregate
 {
     private User() { }
 
-    private User(string email, string fullname)
+    private User(string email, string firstname,
+        string lastname, string identityId)
     {
         Id = Guid.NewGuid();
         Email = email;
-        Fullname = fullname;
+        Firstname = firstname;
+        Lastname = lastname;    
+        IdentityId = identityId;
     }
 
     public string Email { get; private set; }
-    public string Fullname { get; private set; }
+    public string Firstname { get; private set; }
+    public string Lastname { get; private set; }
+    public string IdentityId { get; private set; }
 }

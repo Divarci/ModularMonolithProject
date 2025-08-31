@@ -45,7 +45,7 @@ string connectionString = builder.Configuration.GetConnectionString("Database");
 
 builder.Services.AddCatalogueModule(connectionString!);
 builder.Services.AddDealModule(connectionString!);
-builder.Services.AddUsersModule(connectionString!);
+builder.Services.AddUsersModule(connectionString!, builder.Configuration);
 
 builder.Services.AddHealthChecks()
     .AddSqlServer(connectionString!)

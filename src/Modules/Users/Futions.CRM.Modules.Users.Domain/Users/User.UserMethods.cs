@@ -5,7 +5,8 @@ using Futions.CRM.Modules.Users.Domain.Users.DomainEvents;
 namespace Futions.CRM.Modules.Users.Domain.Users;
 public sealed partial class User
 {
-    public static Result<User> Create(string email, string fullname)
+    public static Result<User> Create(string email, 
+        string firstname, string lastname, string identityId)
     {
         Result emailResult = email.Validate(nameof(email), 64, "User", isEmail: true);
 
@@ -14,30 +15,51 @@ public sealed partial class User
             return Result.Failure<User>(emailResult.Error);
         }
 
-        Result fullnameResult = fullname.Validate(nameof(fullname), 64, "User");
+        Result firstnameResult = firstname.Validate(nameof(firstname), 64, "User");
 
-        if (fullnameResult.IsFailure)
+        if (firstnameResult.IsFailure)
         {
-            return Result.Failure<User>(fullnameResult.Error);
+            return Result.Failure<User>(firstnameResult.Error);
         }
 
-        var user = new User(email, fullname);
+        Result lastnameResult = firstname.Validate(nameof(lastname), 64, "User");
+
+        if (lastnameResult.IsFailure)
+        {
+            return Result.Failure<User>(firstnameResult.Error);
+        }
+
+        var user = new User(email, firstname, lastname, identityId);
 
         user.Raise(new UserRegisteredDomainEvents(user.Id));
 
         return Result.Success(user);
     }
 
-    public Result UpdateFulname(string fullname)
+    public Result UpdateFirstname(string firstname)
     {
-        Result fullnameResult = fullname.Validate(nameof(fullname), 64, "User");
+        Result firstnameResult = firstname.Validate(nameof(firstname), 64, "User");
 
-        if (fullnameResult.IsFailure)
+        if (firstnameResult.IsFailure)
         {
-            return Result.Failure<User>(fullnameResult.Error);
+            return Result.Failure<User>(firstnameResult.Error);
         }
 
-        Fullname = fullname;
+        Firstname = firstname;
+
+        return Result.Success();
+    }
+
+    public Result UpdateLastname(string lastname)
+    {
+        Result lastnameResult = lastname.Validate(nameof(lastname), 64, "User");
+
+        if (lastnameResult.IsFailure)
+        {
+            return Result.Failure<User>(lastnameResult.Error);
+        }
+
+        Lastname = lastname;
 
         return Result.Success();
     }

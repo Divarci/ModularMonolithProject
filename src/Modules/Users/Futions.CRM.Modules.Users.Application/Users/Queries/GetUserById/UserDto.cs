@@ -9,6 +9,9 @@ public record UserDto
     [JsonProperty("email")]
     public required string Email { get; init; }
 
-    [JsonProperty("fullname")]
-    public required string Fullname { get; init; }
+    [JsonProperty("firstname")]
+    public required string Firstname { get; init; }
+
+    [JsonProperty("lastname")]
+    public required string Lastname { get; init; }
 }

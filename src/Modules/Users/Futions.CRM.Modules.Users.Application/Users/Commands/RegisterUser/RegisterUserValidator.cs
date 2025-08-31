@@ -5,7 +5,11 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserCommand>
 {
     public RegisterUserValidator()
     {
-        RuleFor(x=>x.Fullname)
+        RuleFor(x=>x.Firstname)
+            .NotEmpty()
+            .MaximumLength(64);
+
+        RuleFor(x => x.Lastname)
             .NotEmpty()
             .MaximumLength(64);
 
@@ -13,5 +17,9 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserCommand>
             .NotEmpty()
             .EmailAddress()
             .MaximumLength(64);
-    }
+
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .MinimumLength(8);
+     }
 }

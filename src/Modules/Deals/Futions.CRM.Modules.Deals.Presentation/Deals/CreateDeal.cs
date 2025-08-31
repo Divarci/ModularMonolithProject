@@ -23,7 +23,8 @@ internal sealed class CreateDeal : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .WithTags(Tags.Deal);
+            .RequireAuthorization()
+            .WithTags(Tags.Deals);
     }
 }
 

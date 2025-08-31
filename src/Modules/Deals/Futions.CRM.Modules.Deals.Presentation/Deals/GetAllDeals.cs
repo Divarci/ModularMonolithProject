@@ -19,6 +19,8 @@ internal sealed class GetAllDeals : IEndpoint
                 new GetAllDealsQuery(), cancellationToken);
 
             return deals.Match(Results.Ok, ApiResults.Problem);
-        }).WithTags(Tags.Deal);
+        })
+        .RequireAuthorization()
+        .WithTags(Tags.Deals);
     }
 }

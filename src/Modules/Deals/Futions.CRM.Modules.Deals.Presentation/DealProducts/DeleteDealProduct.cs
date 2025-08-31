@@ -14,12 +14,14 @@ internal sealed class DeleteDealProduct : IEndpoint
     {
         app.MapDelete("/deals/{id:guid}/products/{dealProductId:guid}",
             async (Guid id, Guid dealProductId, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result result = await sender.Send(
-                new DeleteDealProductCommand(id, dealProductId), cancellationToken);
+            {
+                Result result = await sender.Send(
+                    new DeleteDealProductCommand(id, dealProductId), cancellationToken);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
+                return result.Match(Results.NoContent, ApiResults.Problem);
 
-        }).WithTags(Tags.DealProducts);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.DealProducts);
     }
 }

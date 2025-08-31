@@ -1,8 +1,9 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
 using Futions.CRM.Common.Domain.IGenericRepositories;
+using Futions.CRM.Common.Infrastructure.Authentication;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
-using MassTransit;
 using Futions.CRM.Common.Infrastructure.Interceptors;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Futions.CRM.Common.Infrastructure;
@@ -16,7 +17,9 @@ public static class InfrastructureConfiguration
 
         AddEventBus(services, moduleConfigureConsumers);
 
-        AddInterceptors(services);  
+        AddInterceptors(services);
+
+        AddAuthentication(services);
 
         return services;
     }
@@ -52,5 +55,16 @@ public static class InfrastructureConfiguration
     private static void AddInterceptors(IServiceCollection services)
     {
         services.AddSingleton<PublishDomainEventsInterceptor>();
+    }
+
+    private static void AddAuthentication(IServiceCollection services)
+    {
+        services.AddAuthorization();
+
+        services.AddAuthentication().AddJwtBearer();
+
+        services.ConfigureOptions<JwtBearerConfigureOptions>();
+
+        services.AddHttpContextAccessor();
     }
 }

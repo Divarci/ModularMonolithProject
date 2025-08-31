@@ -14,10 +14,12 @@ internal sealed class GetUserById : IEndpoint
     {
         app.MapGet("/users/{id:guid}",
             async (Guid id, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result<UserDto> result = await sender.Send(new GetUserByIdQuery(id), cancellationToken);
+            {
+                Result<UserDto> result = await sender.Send(new GetUserByIdQuery(id), cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        }).WithTags(Tags.User);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.Users);
     }
 }

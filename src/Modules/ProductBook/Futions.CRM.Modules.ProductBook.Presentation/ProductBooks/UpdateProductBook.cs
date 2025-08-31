@@ -15,14 +15,16 @@ internal sealed class UpdateProductBook : IEndpoint
     {
         app.MapPatch("productbooks/{id:guid}",
             async (Guid id, UpdateProductBookDto request, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            var command = new UpdateProductBookCommand(
-                id, request.Title, request.Inactive);
+            {
+                var command = new UpdateProductBookCommand(
+                    id, request.Title, request.Inactive);
 
-            Result result = await sender.Send(command, cancellationToken);
+                Result result = await sender.Send(command, cancellationToken);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        });
+                return result.Match(Results.NoContent, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.ProductBooks);
     }
 }
 

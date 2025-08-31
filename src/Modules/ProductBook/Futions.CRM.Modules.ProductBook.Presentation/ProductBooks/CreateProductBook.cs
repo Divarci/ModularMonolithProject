@@ -16,13 +16,14 @@ internal sealed class CreateProductBook : IEndpoint
     {
         app.MapPost("productbooks",
             async (CreateProductBookDto request, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result<Guid> result = await sender
-                .Send(new CreateProductBookCommand(request.Title), cancellationToken);
+            {
+                Result<Guid> result = await sender
+                    .Send(new CreateProductBookCommand(request.Title), cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .WithTags(Tags.ProductBooks);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.ProductBooks);
     }
 }
 

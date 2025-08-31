@@ -16,13 +16,15 @@ internal sealed class CreateDealProduct : IEndpoint
     {
         app.MapPost("/deals/{dealId:guid}/products",
             async (Guid dealId, CreateDealProductDto request, ISender sender, CancellationToken cancellationToken) =>
-        {
-            Result<Guid> result = await sender.Send(
-                new CreateDealProductCommand(dealId, request.ProductId, request.Quantity,
-                request.Description, request.Price, request.Discount), cancellationToken);
+            {
+                Result<Guid> result = await sender.Send(
+                    new CreateDealProductCommand(dealId, request.ProductId, request.Quantity,
+                    request.Description, request.Price, request.Discount), cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.Problem);
-        }).WithTags(Tags.DealProducts);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.DealProducts);
     }
 }
 

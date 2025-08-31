@@ -14,11 +14,13 @@ public class GetAllProductsByProductBookId : IEndpoint
     {
         app.MapGet("productbooks/{id:guid}/products",
             async (Guid id, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result<ProductDto[]> products = await sender
-                .Send(new GetAllProductsByProductBookIdQuery(id), cancellationToken);
+            {
+                Result<ProductDto[]> products = await sender
+                    .Send(new GetAllProductsByProductBookIdQuery(id), cancellationToken);
 
-            return products.Match(Results.Ok, ApiResults.Problem);
-        });
+                return products.Match(Results.Ok, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.Products);
     }
 }

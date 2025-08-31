@@ -15,11 +15,12 @@ internal sealed class GetAllDealProducts : IEndpoint
         app.MapGet("/deals/{id:guid}/products",
             async (Guid id, ISender sender, CancellationToken cancellationToken = default) =>
             {
-                Result < DealProductDto[]> result = await sender.Send(
+                Result<DealProductDto[]> result = await sender.Send(
                     new GetAllDealProductQuery(id), cancellationToken);
 
                 return result.Match(Results.Ok, ApiResults.Problem);
-            } )
+            })
+            .RequireAuthorization()
             .WithTags(Tags.DealProducts);
     }
 }

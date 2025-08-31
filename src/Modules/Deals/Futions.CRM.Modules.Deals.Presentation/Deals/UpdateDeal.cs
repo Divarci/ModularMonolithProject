@@ -22,7 +22,9 @@ internal sealed class UpdateDeal : IEndpoint
                 Result result = await sender.Send(command, cancellationToken);
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
-            }).WithTags(Tags.Deal);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.Deals);
     }
 }
 

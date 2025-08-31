@@ -15,11 +15,13 @@ internal sealed class GetDealById : IEndpoint
     {
         app.MapGet("deals/{id:guid}", 
             async (Guid id, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result<DealDto> result = await sender.Send(new GetDealByIdQuery(id), cancellationToken);
+            {
+                Result<DealDto> result = await sender.Send(new GetDealByIdQuery(id), cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.Problem);
+                return result.Match(Results.Ok, ApiResults.Problem);
 
-        }).WithTags(Tags.Deal);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.Deals);
     }
 }

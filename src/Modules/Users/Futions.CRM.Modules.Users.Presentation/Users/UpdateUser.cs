@@ -16,12 +16,14 @@ internal sealed class UpdateUser : IEndpoint
         app.MapPatch("users/{id:guid}/profile",
             async (Guid id, UpdateUserDto request, 
             ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result result = await sender.Send(
-                new UpdateUserCommand(id, request.Email, request.Fullname), cancellationToken);
+            {
+                Result result = await sender.Send(
+                    new UpdateUserCommand(id, request.Email, request.Fullname), cancellationToken);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        }).WithTags(Tags.User);
+                return result.Match(Results.NoContent, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.Users);
     }
 }
 

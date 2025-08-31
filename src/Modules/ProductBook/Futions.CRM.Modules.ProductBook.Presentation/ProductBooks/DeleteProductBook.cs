@@ -14,12 +14,13 @@ internal sealed class DeleteProductBook : IEndpoint
     {
         app.MapDelete("productbooks/{id:guid}", 
             async (Guid id, ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result result = await sender
-                .Send(new DeleteProductBookCommand(id), cancellationToken);
+            {
+                Result result = await sender
+                    .Send(new DeleteProductBookCommand(id), cancellationToken);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
-        })
-        .WithTags(Tags.Products);
+                return result.Match(Results.NoContent, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.ProductBooks);
     }
 }

@@ -15,13 +15,13 @@ internal sealed class GetAllProductBooks : IEndpoint
     {
         app.MapGet("productbooks",
             async (ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result<ProductBookDto[]> productBooks = await sender.Send(
-                new GetAllProductBooksQuery(), cancellationToken);
+            {
+                Result<ProductBookDto[]> productBooks = await sender.Send(
+                    new GetAllProductBooksQuery(), cancellationToken);
 
-            return productBooks.Match(Results.Ok, ApiResults.Problem);
-        });
+                return productBooks.Match(Results.Ok, ApiResults.Problem);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.ProductBooks);
     }
-
-
 }

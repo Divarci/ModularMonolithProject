@@ -16,14 +16,16 @@ internal sealed class UpdateDealProduct : IEndpoint
         app.MapPatch("deals/{id:guid}/products/{dealProductId:guid}",
             async (Guid id, Guid dealProductId, UpdateDealProductDto request,
                 ISender sender, CancellationToken cancellationToken = default) =>
-        {
-            Result result = await sender.Send(
-                new UpdateDealProductCommand(id, dealProductId, request.Description,
-                request.Quantity, request.Price, request.Discount), cancellationToken);
+            {
+                Result result = await sender.Send(
+                    new UpdateDealProductCommand(id, dealProductId, request.Description,
+                    request.Quantity, request.Price, request.Discount), cancellationToken);
 
-            return result.Match(Results.NoContent, ApiResults.Problem);
+                return result.Match(Results.NoContent, ApiResults.Problem);
 
-        }).WithTags(Tags.DealProducts);
+            })
+            .RequireAuthorization()
+            .WithTags(Tags.DealProducts);
     }
 }
 

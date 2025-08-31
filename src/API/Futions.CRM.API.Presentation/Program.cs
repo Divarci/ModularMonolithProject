@@ -48,7 +48,8 @@ builder.Services.AddDealModule(connectionString!);
 builder.Services.AddUsersModule(connectionString!);
 
 builder.Services.AddHealthChecks()
-    .AddSqlServer(connectionString!);
+    .AddSqlServer(connectionString!)
+    .AddUrlGroup(new Uri(builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!), HttpMethod.Get, "keycloack");
 
 WebApplication app = builder.Build();
 
@@ -67,5 +68,9 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization(); 
 
 app.Run();

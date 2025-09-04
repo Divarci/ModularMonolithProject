@@ -1,9 +1,12 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
 using Futions.CRM.Common.Domain.IGenericRepositories;
 using Futions.CRM.Common.Infrastructure.Authentication;
+using Futions.CRM.Common.Infrastructure.Authorisation;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
 using Futions.CRM.Common.Infrastructure.Interceptors;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Futions.CRM.Common.Infrastructure;
@@ -20,6 +23,8 @@ public static class InfrastructureConfiguration
         AddInterceptors(services);
 
         AddAuthentication(services);
+
+        AddAuthorization(services);
 
         return services;
     }
@@ -66,5 +71,14 @@ public static class InfrastructureConfiguration
         services.ConfigureOptions<JwtBearerConfigureOptions>();
 
         services.AddHttpContextAccessor();
+    }
+
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
+
+        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
-using Futions.CRM.Modules.Users.Domain.Users;
 using Futions.CRM.Modules.Users.Domain.Users.Errors;
 using Microsoft.Extensions.Logging;
 

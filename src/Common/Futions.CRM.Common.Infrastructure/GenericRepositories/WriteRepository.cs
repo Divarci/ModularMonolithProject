@@ -19,6 +19,22 @@ public sealed class WriteRepository<TEntity>(DbContext context) : IWriteReposito
         return entity;
     }
 
+    public async Task<TEntity> CreateAsync<TData>(
+      TEntity entity, IEnumerable<TData> attachedItems,
+      CancellationToken cancellationToken = default) where TData : class
+    {
+        foreach (TData item in attachedItems)
+        {
+            _context.Attach(item);
+        }
+
+        await _context
+            .Set<TEntity>()
+            .AddAsync(entity, cancellationToken);
+
+        return entity;
+    }
+
     public async Task CreateRangeAsync(
         IEnumerable<TEntity> entityCollection,
         CancellationToken cancellationToken = default)

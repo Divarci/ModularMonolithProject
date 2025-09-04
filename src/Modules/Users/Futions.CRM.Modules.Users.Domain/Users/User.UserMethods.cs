@@ -1,5 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Users.Domain.Roles;
 using Futions.CRM.Modules.Users.Domain.Users.DomainEvents;
 
 namespace Futions.CRM.Modules.Users.Domain.Users;
@@ -30,6 +31,8 @@ public sealed partial class User
         }
 
         var user = new User(email, firstname, lastname, identityId);
+
+        user._roles.Add(Role.Member);
 
         user.Raise(new UserRegisteredDomainEvents(user.Id));
 

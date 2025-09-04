@@ -7,6 +7,10 @@ public interface IWriteRepository<TEntity> where TEntity : class, IRootAggregate
         TEntity entity,
         CancellationToken cancellationToken = default);
 
+    Task<TEntity> CreateAsync<TData>(
+        TEntity entity, IEnumerable<TData> attachedItems,
+        CancellationToken cancellationToken = default) where TData : class;
+
     Task CreateRangeAsync(
         IEnumerable<TEntity> entityCollection,
         CancellationToken cancellationToken = default);

@@ -1,6 +1,7 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
+using Futions.CRM.Modules.Users.Domain.Roles;
 using Futions.CRM.Modules.Users.Domain.Users;
 
 namespace Futions.CRM.Modules.Users.Application.Users.Commands.RegisterUser;
@@ -32,7 +33,7 @@ internal sealed class RegisterUserCommandHandler(
 
         await _unitOfWork
             .GetWriteRepository<User>()
-            .CreateAsync(result.Value, cancellationToken);
+            .CreateAsync(result.Value, result.Value.Roles, cancellationToken);
 
         await _unitOfWork.CommitAsync(cancellationToken);
 

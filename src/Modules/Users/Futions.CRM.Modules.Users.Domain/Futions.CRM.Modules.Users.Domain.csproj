@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Domain\Futions.CRM.Common.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Roles\Errors\" />
+  </ItemGroup>
+
 </Project>

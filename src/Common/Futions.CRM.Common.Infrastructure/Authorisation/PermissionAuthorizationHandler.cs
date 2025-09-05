@@ -1,5 +1,4 @@
-﻿using Evently.Common.Infrastructure.Authentication;
-using Futions.CRM.Common.Infrastructure.Authentication;
+﻿using Futions.CRM.Common.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Futions.CRM.Common.Infrastructure.Authorisation;

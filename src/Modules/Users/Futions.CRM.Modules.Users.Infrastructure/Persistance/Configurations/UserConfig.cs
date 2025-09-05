@@ -28,5 +28,11 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.HasIndex(x => x.IdentityId)
             .IsUnique();
+
+        builder.HasMany(x=>x.UserRoles)
+            .WithOne(x=>x.User)
+            .HasForeignKey(ur => ur.UserId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.ClientCascade);
     }
 }

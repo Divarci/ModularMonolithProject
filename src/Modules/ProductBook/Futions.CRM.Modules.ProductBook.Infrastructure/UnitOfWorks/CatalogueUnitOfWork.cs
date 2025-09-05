@@ -1,5 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Entities;
-using Futions.CRM.Common.Domain.IGenericRepositories;
+﻿using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
+using Futions.CRM.Common.Domain.Entities;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;

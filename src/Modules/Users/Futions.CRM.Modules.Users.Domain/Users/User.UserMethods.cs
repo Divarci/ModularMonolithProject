@@ -1,12 +1,11 @@
 ﻿using Futions.CRM.Common.Domain.Extensions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Users.Domain.Roles;
 using Futions.CRM.Modules.Users.Domain.Users.DomainEvents;
 
 namespace Futions.CRM.Modules.Users.Domain.Users;
 public sealed partial class User
 {
-    public static Result<User> Create(string email, 
+    public static Result<User> Create(Guid roleId, string email, 
         string firstname, string lastname, string identityId)
     {
         Result emailResult = email.Validate(nameof(email), 64, "User", isEmail: true);
@@ -32,7 +31,9 @@ public sealed partial class User
 
         var user = new User(email, firstname, lastname, identityId);
 
-        user._roles.Add(Role.Member);
+        var userRole = UserRole.Create(user.Id, roleId);
+
+        user._userRoles.Add(userRole);
 
         user.Raise(new UserRegisteredDomainEvents(user.Id));
 

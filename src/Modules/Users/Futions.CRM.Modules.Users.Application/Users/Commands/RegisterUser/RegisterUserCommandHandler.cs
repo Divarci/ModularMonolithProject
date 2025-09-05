@@ -23,7 +23,7 @@ internal sealed class RegisterUserCommandHandler(
             return Result.Failure<Guid>(identityResult.Error);
         }
 
-        Result<User> result = User.Create(request.Email, 
+        Result<User> result = User.Create(Role.Member.Id, request.Email, 
             request.Firstname, request.Lastname, identityResult.Value);
 
         if (result.IsFailure)
@@ -33,7 +33,7 @@ internal sealed class RegisterUserCommandHandler(
 
         await _unitOfWork
             .GetWriteRepository<User>()
-            .CreateAsync(result.Value, result.Value.Roles, cancellationToken);
+            .CreateAsync(result.Value, cancellationToken);
 
         await _unitOfWork.CommitAsync(cancellationToken);
 

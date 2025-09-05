@@ -1,5 +1,5 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
-using Futions.CRM.Common.Domain.IGenericRepositories;
+using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Futions.CRM.Common.Infrastructure.Authentication;
 using Futions.CRM.Common.Infrastructure.Authorisation;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;

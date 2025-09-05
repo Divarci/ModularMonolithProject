@@ -1,5 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Entities;
-using Futions.CRM.Common.Domain.IGenericRepositories;
+﻿using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
+using Futions.CRM.Common.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Common.Infrastructure.GenericRepositories;
@@ -12,22 +12,6 @@ public sealed class WriteRepository<TEntity>(DbContext context) : IWriteReposito
        TEntity entity,
        CancellationToken cancellationToken = default)
     {
-        await _context
-            .Set<TEntity>()
-            .AddAsync(entity, cancellationToken);
-
-        return entity;
-    }
-
-    public async Task<TEntity> CreateAsync<TData>(
-      TEntity entity, IEnumerable<TData> attachedItems,
-      CancellationToken cancellationToken = default) where TData : class
-    {
-        foreach (TData item in attachedItems)
-        {
-            _context.Attach(item);
-        }
-
         await _context
             .Set<TEntity>()
             .AddAsync(entity, cancellationToken);

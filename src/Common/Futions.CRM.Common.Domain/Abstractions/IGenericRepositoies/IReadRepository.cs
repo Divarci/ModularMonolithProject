@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Entities;
 
-namespace Futions.CRM.Common.Domain.IGenericRepositories;
+namespace Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 public interface IReadRepository<TEntity> where TEntity : class, IAggregate
 {
     IQueryable<TEntity> GetAll();

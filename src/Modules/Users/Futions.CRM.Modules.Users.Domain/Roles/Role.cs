@@ -3,7 +3,7 @@ using Futions.CRM.Common.Domain.Entities;
 using Futions.CRM.Modules.Users.Domain.Users;
 
 namespace Futions.CRM.Modules.Users.Domain.Roles;
-public class Role : BaseEntity, IRootAggregate
+public class Role : BaseEntity, IRootAggregate, IHaveAutoseedData
 {
     private Role() { }
 

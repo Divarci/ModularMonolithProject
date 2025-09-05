@@ -24,7 +24,7 @@ public static class ModelBuilderExtensions
 
             foreach (FieldInfo field in group)
             {
-                object value = field.GetValue(Activator.CreateInstance(field.DeclaringType!));
+                object value = field.GetValue(null);
 
                 entityType.HasData(value ?? throw new CrmException(nameof(ModelBuilderExtensions),
                     Error.Conflict("AutoSeedData.Error", "Failed to get seed data for " + field.Name)));

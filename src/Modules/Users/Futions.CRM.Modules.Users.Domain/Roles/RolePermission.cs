@@ -3,7 +3,7 @@ using Futions.CRM.Common.Domain.Entities;
 using Futions.CRM.Modules.Users.Domain.Permissions;
 
 namespace Futions.CRM.Modules.Users.Domain.Roles;
-public class RolePermission : BaseEntity, IAggregate
+public class RolePermission : BaseEntity, IAggregate, IHaveAutoseedData
 {
     private RolePermission() { }
 

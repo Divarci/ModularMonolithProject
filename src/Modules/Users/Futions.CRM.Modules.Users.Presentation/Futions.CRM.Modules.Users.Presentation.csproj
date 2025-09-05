@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Infrastructure\Futions.CRM.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Common\Futions.CRM.Common.Presentation\Futions.CRM.Common.Presentation.csproj" />
     <ProjectReference Include="..\Futions.CRM.Modules.Users.Application\Futions.CRM.Modules.Users.Application.csproj" />
   </ItemGroup>

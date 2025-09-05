@@ -1,5 +1,7 @@
-﻿using Futions.CRM.Common.Presentation.Endpoints;
+﻿using Futions.CRM.Common.Domain.Abstractions.Authorisations;
+using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
+using Futions.CRM.Modules.Users.Infrastructure.Authorisation;
 using Futions.CRM.Modules.Users.Infrastructure.Identity;
 using Futions.CRM.Modules.Users.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Users.Infrastructure.UnitOfWorks;
@@ -37,6 +39,8 @@ public static class UsersModule
 
     private static void AddAuthentication(IServiceCollection services, IConfiguration config)
     {
+        services.AddScoped<IPermissionService, PermissionService>();
+
         services.Configure<KeyCloakOptions>(config.GetSection("Users:KeyCloak"));
 
         services.AddTransient<KeyCloakAuthDelegatingHandler>();

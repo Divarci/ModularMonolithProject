@@ -1,8 +1,13 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.Authorisations;
+using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
+using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
+using Futions.CRM.Modules.Users.Domain.OutboxMessages;
 using Futions.CRM.Modules.Users.Infrastructure.Authorisation;
 using Futions.CRM.Modules.Users.Infrastructure.Identity;
+using Futions.CRM.Modules.Users.Infrastructure.Outbox;
 using Futions.CRM.Modules.Users.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Users.Infrastructure.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +19,15 @@ namespace Futions.CRM.Modules.Users.Infrastructure;
 public static class UsersModule
 {
     public static IServiceCollection AddUsersModule(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         string connectionString,
         IConfiguration config)
     {
         AddInfrastructure(services, connectionString);
 
         AddAuthentication(services, config);
+
+        AddOutbox(services, config);
 
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
@@ -31,9 +38,10 @@ public static class UsersModule
     {
         services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
-        services.AddDbContext<UsersDbContext>(options =>
+        services.AddDbContext<UsersDbContext>((sp, options) =>
         {
             options.UseSqlServer(connectionString);
+            options.AddInterceptors(sp.GetRequiredService<InsertOutboxMessagesInterceptor<UsersOutboxMessage>>());
         });
     }
 
@@ -56,5 +64,20 @@ public static class UsersModule
             .AddHttpMessageHandler<KeyCloakAuthDelegatingHandler>();
 
         services.AddTransient<IIdentityProviderService, IdentityProviderService>();
+    }
+
+    public static void AddOutbox(IServiceCollection services, IConfiguration config)
+    {
+        services.AddScoped<IOutboxMessageFactory<UsersOutboxMessage>, UsersOutboxMessage>();
+
+        services.AddScoped(provider =>
+            new InsertOutboxMessagesInterceptor<UsersOutboxMessage>(
+                OutboxActionsFactory<UsersOutboxMessage>.Create<IUsersUnitOfWork>(provider),
+                provider.GetRequiredService<IOutboxMessageFactory<UsersOutboxMessage>>()
+        ));
+
+        services.Configure<UsersOutboxOptions>(config.GetSection("Users:Outbox"));
+
+        services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, UsersOutboxOptions>>();
     }
 }

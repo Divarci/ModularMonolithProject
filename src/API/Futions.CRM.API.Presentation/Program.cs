@@ -43,8 +43,8 @@ builder.Services.AddInfrastructure(
 
 string connectionString = builder.Configuration.GetConnectionString("Database");
 
-builder.Services.AddCatalogueModule(connectionString!);
-builder.Services.AddDealModule(connectionString!);
+builder.Services.AddCatalogueModule(connectionString!, builder.Configuration);
+builder.Services.AddDealModule(connectionString!, builder.Configuration);
 builder.Services.AddUsersModule(connectionString!, builder.Configuration);
 
 builder.Services.AddHealthChecks()

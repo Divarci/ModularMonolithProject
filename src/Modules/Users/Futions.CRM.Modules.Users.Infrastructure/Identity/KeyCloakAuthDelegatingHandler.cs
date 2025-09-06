@@ -1,9 +1,6 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
-using Futions.CRM.Common.Application.Exceptions;
-using Futions.CRM.Common.Domain.Results;
 using Microsoft.Extensions.Options;
 
 namespace Futions.CRM.Modules.Users.Infrastructure.Identity;

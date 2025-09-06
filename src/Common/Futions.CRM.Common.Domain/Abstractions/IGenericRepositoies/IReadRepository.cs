@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
 
 namespace Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 public interface IReadRepository<TEntity> where TEntity : class, IAggregate

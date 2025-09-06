@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
+using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 using Futions.CRM.Modules.Catalogue.Domain.Products;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks;

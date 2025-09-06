@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Futions.CRM.Common.Application.Exceptions;
+using Futions.CRM.Common.Domain.Exceptions;
 
 namespace Futions.CRM.Common.Infrastructure.Authentication;
 

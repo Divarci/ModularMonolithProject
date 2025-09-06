@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Futions.CRM.Common.Application.Exceptions;
 using Futions.CRM.Common.Domain.Abstractions.AutoSeed;
+using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -6,6 +6,14 @@
       "ConfidentialClientId": "futionsCrm-confidential-client",
       "ConfidentialClientSecret": "bSCB3v3nT3yWlkLnX1SrA9yHAxI8HzIL",
       "PublicClientId": "futionsCrm-public-client"
+    },
+    "Outbox": {
+      "IntervalInSeconds": 15,
+      "BatchSize": 20
+    },
+    "Inbox": {
+      "IntervalInSeconds": 15,
+      "BatchSize": 20
     }
   }
 }

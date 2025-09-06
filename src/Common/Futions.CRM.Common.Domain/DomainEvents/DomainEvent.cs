@@ -1,4 +1,6 @@
-﻿namespace Futions.CRM.Common.Domain.DomainEvents;
+﻿using MediatR;
+
+namespace Futions.CRM.Common.Domain.DomainEvents;
 
 public abstract class DomainEvent : IDomainEvent
 {

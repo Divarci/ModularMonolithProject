@@ -79,6 +79,34 @@ namespace Futions.CRM.Modules.Deals.Infrastructure.Persistance.Database.Migratio
                     b.ToTable("DealProduct", "deals");
                 });
 
+            modelBuilder.Entity("Futions.CRM.Modules.Deals.Domain.OutboxMessages.DealsOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DealsOutboxMessage", "deals");
+                });
+
             modelBuilder.Entity("Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Product", b =>
                 {
                     b.Property<Guid>("Id")

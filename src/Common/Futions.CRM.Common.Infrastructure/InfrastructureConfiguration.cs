@@ -3,11 +3,12 @@ using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Futions.CRM.Common.Infrastructure.Authentication;
 using Futions.CRM.Common.Infrastructure.Authorisation;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
-using Futions.CRM.Common.Infrastructure.Interceptors;
+using Futions.CRM.Common.Infrastructure.Outbox;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 
 namespace Futions.CRM.Common.Infrastructure;
 public static class InfrastructureConfiguration
@@ -20,11 +21,11 @@ public static class InfrastructureConfiguration
 
         AddEventBus(services, moduleConfigureConsumers);
 
-        AddInterceptors(services);
-
         AddAuthentication(services);
 
         AddAuthorization(services);
+
+        AddBackgroundJobs(services);
 
         return services;
     }
@@ -57,11 +58,6 @@ public static class InfrastructureConfiguration
         });
     }
 
-    private static void AddInterceptors(IServiceCollection services)
-    {
-        services.AddSingleton<PublishDomainEventsInterceptor>();
-    }
-
     private static void AddAuthentication(IServiceCollection services)
     {
         services.AddAuthorization();
@@ -80,5 +76,12 @@ public static class InfrastructureConfiguration
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+    }
+
+    private static void AddBackgroundJobs(IServiceCollection services)
+    {
+        services.AddQuartz();
+
+        services.AddQuartzHostedService(opt => opt.WaitForJobsToComplete = true);
     }
 }

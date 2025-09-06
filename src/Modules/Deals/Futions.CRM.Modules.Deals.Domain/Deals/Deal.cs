@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
+using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 
 namespace Futions.CRM.Modules.Deals.Domain.Deals;
 public partial class Deal : BaseEntity, IRootAggregate

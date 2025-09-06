@@ -1,5 +1,5 @@
-﻿using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
-using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
+using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Common.Infrastructure.GenericRepositories;

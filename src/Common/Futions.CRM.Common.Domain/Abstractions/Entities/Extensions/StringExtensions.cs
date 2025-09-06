@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Futions.CRM.Common.Domain.Results;
 
-namespace Futions.CRM.Common.Domain.Extensions;
+namespace Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 public static class StringExtensions
 {
     private static readonly Regex EmailRegex = new Regex(

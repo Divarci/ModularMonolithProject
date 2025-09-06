@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Application.Exceptions;
+﻿using Futions.CRM.Common.Domain.Exceptions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

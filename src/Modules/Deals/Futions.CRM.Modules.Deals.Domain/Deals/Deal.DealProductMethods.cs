@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Domain.Extensions;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Deals.Domain.Deals.Errors;
 

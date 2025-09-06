@@ -1,5 +1,5 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.IUnitOfWorks;
+using Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.Shared.Dto;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;

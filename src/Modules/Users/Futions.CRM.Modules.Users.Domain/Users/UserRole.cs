@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
 using Futions.CRM.Modules.Users.Domain.Roles;
 
 namespace Futions.CRM.Modules.Users.Domain.Users;

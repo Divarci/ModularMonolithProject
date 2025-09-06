@@ -23,6 +23,34 @@ namespace Futions.CRM.Modules.Users.Infrastructure.Persistance.Database.Migratio
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Futions.CRM.Modules.Users.Domain.OutboxMessages.UsersOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UsersOutboxMessage", "users");
+                });
+
             modelBuilder.Entity("Futions.CRM.Modules.Users.Domain.Permissions.Permission", b =>
                 {
                     b.Property<Guid>("Id")

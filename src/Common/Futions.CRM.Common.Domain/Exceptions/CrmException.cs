@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Results;
 
-namespace Futions.CRM.Common.Application.Exceptions;
+namespace Futions.CRM.Common.Domain.Exceptions;
 public class CrmException : Exception
 {
     public CrmException(

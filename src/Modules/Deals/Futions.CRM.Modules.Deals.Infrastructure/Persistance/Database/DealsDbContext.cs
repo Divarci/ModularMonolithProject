@@ -8,6 +8,5 @@ public sealed class DealsDbContext(DbContextOptions<DealsDbContext> options) : D
         modelBuilder.HasDefaultSchema(Schemas.Deals);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(DealsDbContext).Assembly);
-
     }
 }

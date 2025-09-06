@@ -1,5 +1,5 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.AutoSeed;
-using Futions.CRM.Common.Domain.Entities;
+using Futions.CRM.Common.Domain.Abstractions.Entities;
 using Futions.CRM.Modules.Users.Domain.Permissions;
 
 namespace Futions.CRM.Modules.Users.Domain.Roles;

@@ -5,13 +5,30 @@
 namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database.Migrations;
 
 /// <inheritdoc />
-public partial class CatalogueInitial : Migration
+public partial class InitialCreation : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.EnsureSchema(
             name: "catalogue");
+
+        migrationBuilder.CreateTable(
+            name: "CatalogueOutboxMessage",
+            schema: "catalogue",
+            columns: table => new
+            {
+                Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                OccurredOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                ProcessedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
+                Error = table.Column<string>(type: "nvarchar(max)", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_CatalogueOutboxMessage", x => x.Id);
+            });
 
         migrationBuilder.CreateTable(
             name: "ProductBook",
@@ -60,6 +77,10 @@ public partial class CatalogueInitial : Migration
     /// <inheritdoc />
     protected override void Down(MigrationBuilder migrationBuilder)
     {
+        migrationBuilder.DropTable(
+            name: "CatalogueOutboxMessage",
+            schema: "catalogue");
+
         migrationBuilder.DropTable(
             name: "Product",
             schema: "catalogue");

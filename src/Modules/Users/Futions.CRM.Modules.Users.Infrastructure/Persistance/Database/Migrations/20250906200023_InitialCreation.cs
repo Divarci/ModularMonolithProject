@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Futions.CRM.Modules.Users.Infrastructure.Persistance.Database.Migrations;
 
 /// <inheritdoc />
-public partial class UserSchemaUpdate : Migration
+public partial class InitialCreation : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +55,23 @@ public partial class UserSchemaUpdate : Migration
             constraints: table =>
             {
                 table.PrimaryKey("PK_User", x => x.Id);
+            });
+
+        migrationBuilder.CreateTable(
+            name: "UsersOutboxMessage",
+            schema: "users",
+            columns: table => new
+            {
+                Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                OccurredOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                ProcessedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
+                Error = table.Column<string>(type: "nvarchar(max)", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_UsersOutboxMessage", x => x.Id);
             });
 
         migrationBuilder.CreateTable(
@@ -200,6 +216,10 @@ public partial class UserSchemaUpdate : Migration
 
         migrationBuilder.DropTable(
             name: "UserRole",
+            schema: "users");
+
+        migrationBuilder.DropTable(
+            name: "UsersOutboxMessage",
             schema: "users");
 
         migrationBuilder.DropTable(

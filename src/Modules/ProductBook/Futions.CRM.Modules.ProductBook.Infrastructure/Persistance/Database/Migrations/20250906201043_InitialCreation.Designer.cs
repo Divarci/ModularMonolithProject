@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database.Migrations
 {
     [DbContext(typeof(CatalogueDbContext))]
-    [Migration("20250828194627_CatalogueInitial")]
-    partial class CatalogueInitial
+    [Migration("20250906201043_InitialCreation")]
+    partial class InitialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,34 @@ namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database.Migr
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Futions.CRM.Modules.Catalogue.Domain.OutboxMessages.CatalogueOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CatalogueOutboxMessage", "catalogue");
+                });
 
             modelBuilder.Entity("Futions.CRM.Modules.Catalogue.Domain.ProductBooks.ProductBook", b =>
                 {

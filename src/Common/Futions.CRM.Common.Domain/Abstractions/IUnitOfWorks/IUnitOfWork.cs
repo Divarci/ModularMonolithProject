@@ -1,7 +1,8 @@
-﻿using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
-using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
+using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
+using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 
-namespace Futions.CRM.Common.Domain.IUnitOfWorks;
+namespace Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
 public interface IUnitOfWork
 {
     Task CommitAsync(CancellationToken cancellationToken = default);
@@ -10,5 +11,5 @@ public interface IUnitOfWork
         where TEntity : class, IAggregate;
 
     IWriteRepository<TEntity> GetWriteRepository<TEntity>()
-        where TEntity : class, IRootAggregate;
+        where TEntity : class, IRootAggregate;    
 }

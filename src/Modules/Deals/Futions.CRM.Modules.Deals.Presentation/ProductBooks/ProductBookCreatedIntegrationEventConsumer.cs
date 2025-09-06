@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Application.Exceptions;
+﻿using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.IntegrationEvents;
 using Futions.CRM.Modules.Deals.Application.ProductBooks.Commands.CreateProductBook;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Futions.CRM.Modules.Users.Infrastructure.Persistance.Database.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20250905191349_UserSchemaUpdate")]
-    partial class UserSchemaUpdate
+    [Migration("20250906200023_InitialCreation")]
+    partial class InitialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,34 @@ namespace Futions.CRM.Modules.Users.Infrastructure.Persistance.Database.Migratio
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Futions.CRM.Modules.Users.Domain.OutboxMessages.UsersOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OccurredOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UsersOutboxMessage", "users");
+                });
 
             modelBuilder.Entity("Futions.CRM.Modules.Users.Domain.Permissions.Permission", b =>
                 {

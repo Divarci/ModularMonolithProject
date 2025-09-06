@@ -1,4 +1,4 @@
-﻿using Futions.CRM.Common.Domain.Entities;
+﻿using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 
 namespace Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 public interface IWriteRepository<TEntity> where TEntity : class, IRootAggregate

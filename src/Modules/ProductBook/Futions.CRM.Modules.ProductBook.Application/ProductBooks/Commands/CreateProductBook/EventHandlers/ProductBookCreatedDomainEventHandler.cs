@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
-using Futions.CRM.Common.Application.Exceptions;
 using Futions.CRM.Common.Application.Messaging;
+using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.GetProductBookById;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.Shared.Dto;

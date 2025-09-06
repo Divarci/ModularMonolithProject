@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using Futions.CRM.Common.Application.Exceptions;
 using Futions.CRM.Common.Domain.Abstractions.Authorisations;
+using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Common.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication;

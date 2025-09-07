@@ -39,7 +39,7 @@ builder.Services.AddInfrastructure(
     [
         DealsModule.ConfigureConsumers,
         CatalogueModule.ConfigureConsumers
-    ]);
+    ], moduleApplicationAssemblies);
 
 string connectionString = builder.Configuration.GetConnectionString("Database");
 

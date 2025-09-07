@@ -1,4 +1,6 @@
-﻿using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+﻿using Futions.CRM.Common.Application.Messaging;
+using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
+using Futions.CRM.Common.Domain.Entities.OutboxMessages;
 using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
@@ -10,6 +12,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Futions.CRM.Modules.Catalogue.Infrastructure;
 public static class CatalogueModule
@@ -20,6 +23,8 @@ public static class CatalogueModule
         AddOutbox(services, config);
 
         AddInfrastructure(services, connectionString);
+
+        AddDomainEventHandlers(services);
 
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
@@ -56,5 +61,30 @@ public static class CatalogueModule
         services.Configure<CatalogueOutboxOptions>(config.GetSection("Catalogue:Outbox"));
 
         services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, CatalogueOutboxOptions>>();
+    }
+
+    private static void AddDomainEventHandlers(this IServiceCollection services)
+    {
+        services.AddScoped<IOutboxMessageConsumerFactory<CatalogueOutboxMessageConsumer>, CatalogueOutboxMessageConsumer>();
+
+        Type[] domainEventHandlers = [.. Application.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(IDomainEventHandler)))];
+
+        foreach (Type domainEventHandler in domainEventHandlers)
+        {
+            services.TryAddScoped(domainEventHandler);
+
+            Type domainEvent = domainEventHandler
+                .GetInterfaces()
+                .Single(i => i.IsGenericType)
+                .GetGenericArguments()
+                .Single();
+
+            Type closedIdempotentHandler = typeof(IdempotentDomainEventHandler<,,>)
+                .MakeGenericType(domainEvent, typeof(ICatalogueUnitOfWork), typeof(CatalogueOutboxMessageConsumer));
+
+            services.Decorate(domainEventHandler, closedIdempotentHandler);
+        }
     }
 }

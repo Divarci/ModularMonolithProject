@@ -1,4 +1,5 @@
-﻿using Futions.CRM.Common.Domain.DomainEvents;
+﻿using Futions.CRM.Common.Application.Messaging;
+using Futions.CRM.Common.Domain.DomainEvents;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Common.Infrastructure.Outbox;
@@ -54,9 +55,15 @@ internal sealed class ProcessOutboxJob(
 
                 using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-                IPublisher publisher = scope.ServiceProvider.GetRequiredService<IPublisher>();
+                IEnumerable<IDomainEventHandler> domainEventHandlers= DomainEventHandlersFactory.GetHandlers(
+                    domainEvent.GetType(),
+                    scope.ServiceProvider,
+                    Application.AssemblyReference.Assembly);
 
-                await publisher.Publish(domainEvent);
+                foreach (IDomainEventHandler domainEventHandler in domainEventHandlers)
+                {
+                    await domainEventHandler.Handle(domainEvent);
+                }               
             }
             catch (Exception ex)
             {

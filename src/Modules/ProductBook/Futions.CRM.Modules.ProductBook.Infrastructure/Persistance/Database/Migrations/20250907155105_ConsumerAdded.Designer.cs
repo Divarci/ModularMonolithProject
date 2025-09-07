@@ -4,6 +4,7 @@ using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database.Migrations
 {
     [DbContext(typeof(CatalogueDbContext))]
-    partial class CatalogueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250907155105_ConsumerAdded")]
+    partial class ConsumerAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

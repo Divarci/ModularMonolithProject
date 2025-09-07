@@ -1,5 +1,8 @@
-﻿using Futions.CRM.Common.Domain.Abstractions.Authorisations;
+﻿using System.Reflection;
+using Futions.CRM.Common.Application.Messaging;
+using Futions.CRM.Common.Domain.Abstractions.Authorisations;
 using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
+using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
 using Futions.CRM.Common.Domain.Entities.OutboxMessages;
 using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
@@ -13,6 +16,7 @@ using Futions.CRM.Modules.Users.Infrastructure.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace Futions.CRM.Modules.Users.Infrastructure;
@@ -28,6 +32,8 @@ public static class UsersModule
         AddAuthentication(services, config);
 
         AddOutbox(services, config);
+
+        AddDomainEventHandlers(services);
 
         services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
@@ -79,5 +85,29 @@ public static class UsersModule
         services.Configure<UsersOutboxOptions>(config.GetSection("Users:Outbox"));
 
         services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, UsersOutboxOptions>>();
+    }
+    private static void AddDomainEventHandlers(this IServiceCollection services)
+    {
+        services.AddScoped<IOutboxMessageConsumerFactory<UsersOutboxMessageConsumer>, UsersOutboxMessageConsumer>();
+
+        Type[] domainEventHandlers = [.. Application.AssemblyReference.Assembly
+            .GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(IDomainEventHandler)))];
+
+        foreach (Type domainEventHandler in domainEventHandlers)
+        {
+            services.TryAddScoped(domainEventHandler);
+
+            Type domainEvent = domainEventHandler
+                .GetInterfaces()
+                .Single(i => i.IsGenericType)
+                .GetGenericArguments()
+                .Single();
+
+            Type closedIdempotentHandler = typeof(IdempotentDomainEventHandler<,,>)
+                .MakeGenericType(domainEvent,typeof(IUsersUnitOfWork),typeof(UsersOutboxMessageConsumer));
+
+            services.Decorate(domainEventHandler, closedIdempotentHandler);
+        }
     }
 }

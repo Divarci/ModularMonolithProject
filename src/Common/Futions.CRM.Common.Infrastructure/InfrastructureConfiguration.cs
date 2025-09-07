@@ -1,4 +1,6 @@
-﻿using Futions.CRM.Common.Application.EventBus;
+﻿using System.Reflection;
+using Futions.CRM.Common.Application.EventBus;
+using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Futions.CRM.Common.Infrastructure.Authentication;
 using Futions.CRM.Common.Infrastructure.Authorisation;
@@ -8,6 +10,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Quartz;
 
 namespace Futions.CRM.Common.Infrastructure;
@@ -15,7 +18,8 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        Action<IRegistrationConfigurator>[] moduleConfigureConsumers)
+        Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
+        Assembly[] assemblies)
     {
         AddRepositories(services);
 

@@ -11,7 +11,7 @@ public abstract class OutboxMessage: IRootAggregate
         if (string.IsNullOrWhiteSpace(type))
         {
             throw new CrmException(nameof(OutboxMessage),
-                Results.Error.Problem(
+                Results.Error.Validation(
                     "OutbboxMessageCreate.NullObject",
                     $"{nameof(type)} is null"));
         }
@@ -19,7 +19,7 @@ public abstract class OutboxMessage: IRootAggregate
         if (string.IsNullOrWhiteSpace(content))
         {
             throw new CrmException(nameof(OutboxMessage),
-                Results.Error.Problem(
+                Results.Error.Validation(
                     "OutbboxMessageCreate.NullObject",
                     $"{nameof(type)} is null"));
         }

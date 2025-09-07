@@ -1,7 +1,7 @@
 ﻿using MediatR;
 
 namespace Futions.CRM.Common.Domain.DomainEvents;
-public interface IDomainEvent : INotification
+public interface IDomainEvent
 {
     Guid Id { get; }
 

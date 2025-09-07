@@ -1,18 +1,17 @@
 ﻿using Futions.CRM.Common.Domain.Entities.Messages;
 
-namespace Futions.CRM.Modules.Deals.Domain.OutboxMessages;
-public sealed class DealsOutboxMessage : Message, IMessageFactory<DealsOutboxMessage>
+namespace Futions.CRM.Modules.Deals.Domain.InboxMessages;
+public class DealsInboxMessage : Message, IMessageFactory<DealsInboxMessage>
 {
-    public DealsOutboxMessage() { }
+    public DealsInboxMessage() { }
 
-    private DealsOutboxMessage(
+    public DealsInboxMessage(
         Guid id,
         string type,
         string content,
         DateTime occurredOnUtc) : base(id, type, content, occurredOnUtc) { }
 
-    public DealsOutboxMessage Create(Guid id, string type,
+    public DealsInboxMessage Create(Guid id, string type,
         string content, DateTime occurredOnUtc)
         => new(id, type, content, occurredOnUtc);
 }
-

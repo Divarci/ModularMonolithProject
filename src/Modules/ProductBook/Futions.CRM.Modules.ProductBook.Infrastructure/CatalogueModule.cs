@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
-using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
-using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+using Futions.CRM.Common.Domain.Entities.MessageConsumers;
+using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
@@ -50,12 +50,12 @@ public static class CatalogueModule
 
     public static void AddOutbox(IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IOutboxMessageFactory<CatalogueOutboxMessage>, CatalogueOutboxMessage>();
+        services.AddScoped<IMessageFactory<CatalogueOutboxMessage>, CatalogueOutboxMessage>();
 
         services.AddScoped(provider =>
             new InsertOutboxMessagesInterceptor<CatalogueOutboxMessage>(
                 OutboxActionsFactory<CatalogueOutboxMessage>.Create<ICatalogueUnitOfWork>(provider),
-                provider.GetRequiredService<IOutboxMessageFactory<CatalogueOutboxMessage>>()
+                provider.GetRequiredService<IMessageFactory<CatalogueOutboxMessage>>()
         ));
 
         services.Configure<CatalogueOutboxOptions>(config.GetSection("Catalogue:Outbox"));
@@ -65,7 +65,7 @@ public static class CatalogueModule
 
     private static void AddDomainEventHandlers(this IServiceCollection services)
     {
-        services.AddScoped<IOutboxMessageConsumerFactory<CatalogueOutboxMessageConsumer>, CatalogueOutboxMessageConsumer>();
+        services.AddScoped<IMessageConsumerFactory<CatalogueOutboxMessageConsumer>, CatalogueOutboxMessageConsumer>();
 
         Type[] domainEventHandlers = [.. Application.AssemblyReference.Assembly
             .GetTypes()

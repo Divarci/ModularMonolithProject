@@ -1,13 +1,13 @@
-﻿using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
+﻿using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.OutboxMessages;
-public class CatalogueOutboxMessageConsumer : OutboxMessageConsumer, IOutboxMessageConsumerFactory<CatalogueOutboxMessageConsumer>
+public class CatalogueOutboxMessageConsumer : MessageConsumer, IMessageConsumerFactory<CatalogueOutboxMessageConsumer>
 {
     public CatalogueOutboxMessageConsumer() { }
 
-    private CatalogueOutboxMessageConsumer(Guid outboxMessageId, string name)
-        : base(outboxMessageId, name) { }
+    private CatalogueOutboxMessageConsumer(Guid id, string name)
+        : base(id, name) { }
 
-    public CatalogueOutboxMessageConsumer Create(Guid outboxMessageId, string name)
-        => new(outboxMessageId, name);
+    public CatalogueOutboxMessageConsumer Create(Guid id, string name)
+        => new(id, name);
 }

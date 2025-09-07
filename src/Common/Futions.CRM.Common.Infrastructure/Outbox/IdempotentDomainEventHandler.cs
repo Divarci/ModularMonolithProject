@@ -1,21 +1,21 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
 using Futions.CRM.Common.Domain.DomainEvents;
-using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
+using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Common.Infrastructure.Outbox;
 public sealed class IdempotentDomainEventHandler<TDomainEvent, TUnitOfWork, TMessageConsumer>(
     IDomainEventHandler<TDomainEvent> decorated,
     TUnitOfWork unitOfWork,
-    IOutboxMessageConsumerFactory<TMessageConsumer> messageConsumerFactory) : DomainEventHandler<TDomainEvent>
+    IMessageConsumerFactory<TMessageConsumer> messageConsumerFactory) : DomainEventHandler<TDomainEvent>
     where TDomainEvent : IDomainEvent
     where TUnitOfWork : IUnitOfWork
-    where TMessageConsumer : OutboxMessageConsumer
+    where TMessageConsumer : MessageConsumer
 {
     private readonly IDomainEventHandler<TDomainEvent> _decorated = decorated;
     private readonly TUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IOutboxMessageConsumerFactory<TMessageConsumer> _messageConsumerFactory = messageConsumerFactory;
+    private readonly IMessageConsumerFactory<TMessageConsumer> _messageConsumerFactory = messageConsumerFactory;
 
     public override async Task Handle(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {

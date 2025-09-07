@@ -1,16 +1,16 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
 using Futions.CRM.Common.Domain.Exceptions;
 
-namespace Futions.CRM.Common.Domain.Entities.OutboxMessages;
-public abstract class OutboxMessage: IRootAggregate
+namespace Futions.CRM.Common.Domain.Entities.Messages;
+public abstract class Message: IRootAggregate
 {
-    protected OutboxMessage() { }
-    protected OutboxMessage(Guid id, string type, 
+    protected Message() { }
+    protected Message(Guid id, string type, 
         string content, DateTime occurredOnUtc)
     {
         if (string.IsNullOrWhiteSpace(type))
         {
-            throw new CrmException(nameof(OutboxMessage),
+            throw new CrmException(nameof(Message),
                 Results.Error.Validation(
                     "OutbboxMessageCreate.NullObject",
                     $"{nameof(type)} is null"));
@@ -18,7 +18,7 @@ public abstract class OutboxMessage: IRootAggregate
 
         if (string.IsNullOrWhiteSpace(content))
         {
-            throw new CrmException(nameof(OutboxMessage),
+            throw new CrmException(nameof(Message),
                 Results.Error.Validation(
                     "OutbboxMessageCreate.NullObject",
                     $"{nameof(type)} is null"));

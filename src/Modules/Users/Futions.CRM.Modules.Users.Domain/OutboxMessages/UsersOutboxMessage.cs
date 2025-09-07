@@ -1,11 +1,11 @@
-﻿using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+﻿using Futions.CRM.Common.Domain.Entities.Messages;
 
 namespace Futions.CRM.Modules.Users.Domain.OutboxMessages;
-public class UsersOutboxMessage : OutboxMessage, IOutboxMessageFactory<UsersOutboxMessage>
+public class UsersOutboxMessage : Message, IMessageFactory<UsersOutboxMessage>
 {
     public UsersOutboxMessage() { }
 
-    public UsersOutboxMessage(
+    private UsersOutboxMessage(
         Guid id,
         string type,
         string content,
@@ -15,4 +15,3 @@ public class UsersOutboxMessage : OutboxMessage, IOutboxMessageFactory<UsersOutb
         string content, DateTime occurredOnUtc)
         => new(id, type, content, occurredOnUtc);
 }
-

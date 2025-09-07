@@ -1,13 +1,13 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
-using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Futions.CRM.Common.Infrastructure.Outbox;
-public static class OutboxActionsFactory<TMessage> where TMessage : OutboxMessage
+public static class OutboxActionsFactory<TMessage> where TMessage : Message
 {
     public static Func<IReadOnlyCollection<TMessage>, CancellationToken, Task> Create<TUnitOfWork>(
         IServiceProvider provider)

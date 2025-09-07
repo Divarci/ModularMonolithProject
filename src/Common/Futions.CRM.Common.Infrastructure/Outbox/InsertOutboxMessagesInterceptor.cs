@@ -1,6 +1,6 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.Entities;
 using Futions.CRM.Common.Domain.DomainEvents;
-using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Infrastructure.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -9,11 +9,11 @@ using Newtonsoft.Json;
 namespace Futions.CRM.Common.Infrastructure.Outbox;
 public sealed class InsertOutboxMessagesInterceptor<TMessage>(
     Func<IReadOnlyCollection<TMessage>, CancellationToken, Task> handler,
-    IOutboxMessageFactory<TMessage> messageFactory) : SaveChangesInterceptor
-    where TMessage : OutboxMessage, new()
+    IMessageFactory<TMessage> messageFactory) : SaveChangesInterceptor
+    where TMessage : Message, new()
 {
     private readonly Func<IReadOnlyCollection<TMessage>, CancellationToken, Task> _saveOutboxMessages = handler;
-    private readonly IOutboxMessageFactory<TMessage> _messageFactory = messageFactory;
+    private readonly IMessageFactory<TMessage> _messageFactory = messageFactory;
 
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
@@ -34,7 +34,7 @@ public sealed class InsertOutboxMessagesInterceptor<TMessage>(
     }
 
     private static IReadOnlyCollection<TMessage> ExtractOutboxMessages(
-        DbContext context, IOutboxMessageFactory<TMessage> message)
+        DbContext context, IMessageFactory<TMessage> message)
     {
         IReadOnlyCollection<TMessage> outboxMessages = context
             .ChangeTracker

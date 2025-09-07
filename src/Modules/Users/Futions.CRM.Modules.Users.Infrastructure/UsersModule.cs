@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using Futions.CRM.Common.Application.Messaging;
+﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Abstractions.Authorisations;
-using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
-using Futions.CRM.Common.Domain.Entities.OutboxMessageConsumers;
-using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+using Futions.CRM.Common.Domain.Entities.MessageConsumers;
+using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
@@ -74,12 +72,12 @@ public static class UsersModule
 
     public static void AddOutbox(IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IOutboxMessageFactory<UsersOutboxMessage>, UsersOutboxMessage>();
+        services.AddScoped<IMessageFactory<UsersOutboxMessage>, UsersOutboxMessage>();
 
         services.AddScoped(provider =>
             new InsertOutboxMessagesInterceptor<UsersOutboxMessage>(
                 OutboxActionsFactory<UsersOutboxMessage>.Create<IUsersUnitOfWork>(provider),
-                provider.GetRequiredService<IOutboxMessageFactory<UsersOutboxMessage>>()
+                provider.GetRequiredService<IMessageFactory<UsersOutboxMessage>>()
         ));
 
         services.Configure<UsersOutboxOptions>(config.GetSection("Users:Outbox"));
@@ -88,7 +86,7 @@ public static class UsersModule
     }
     private static void AddDomainEventHandlers(this IServiceCollection services)
     {
-        services.AddScoped<IOutboxMessageConsumerFactory<UsersOutboxMessageConsumer>, UsersOutboxMessageConsumer>();
+        services.AddScoped<IMessageConsumerFactory<UsersOutboxMessageConsumer>, UsersOutboxMessageConsumer>();
 
         Type[] domainEventHandlers = [.. Application.AssemblyReference.Assembly
             .GetTypes()

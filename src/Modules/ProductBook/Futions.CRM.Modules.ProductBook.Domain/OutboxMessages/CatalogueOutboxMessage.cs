@@ -1,7 +1,7 @@
-﻿using Futions.CRM.Common.Domain.Entities.OutboxMessages;
+﻿using Futions.CRM.Common.Domain.Entities.Messages;
 
 namespace Futions.CRM.Modules.Catalogue.Domain.OutboxMessages;
-public sealed class CatalogueOutboxMessage : OutboxMessage, IOutboxMessageFactory<CatalogueOutboxMessage>
+public sealed class CatalogueOutboxMessage : Message, IMessageFactory<CatalogueOutboxMessage>
 {
     public CatalogueOutboxMessage() { }
 

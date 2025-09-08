@@ -33,6 +33,8 @@ public partial class ProductBook
 
         Title = title;
 
+        Raise(new ProductBookTitleUpdatedDomainEvent(Id));
+
         return Result.Success();
     }
 

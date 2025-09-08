@@ -56,6 +56,10 @@ public static class DealsModule
         registrationConfigurator.AddConsumer<
             IntegrationEventConsumer<
                 ProductBookCreatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductBookTitleUpdatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
     }
 
     public static void AddOutbox(IServiceCollection services, IConfiguration config)

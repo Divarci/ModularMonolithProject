@@ -4,5 +4,5 @@ namespace Futions.CRM.Modules.Deals.Application.ProductBooks.Commands.UpdateProd
 
 public record UpdateProductBookCommand(
     Guid ProductBookId,
-    string? Title,
-    bool? Inactive) : ICommand;
+    string? Title = null,
+    bool? Inactive = null) : ICommand;

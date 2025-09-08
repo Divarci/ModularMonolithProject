@@ -8,25 +8,25 @@ using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBook
 using Futions.CRM.Modules.Catalogue.IntegrationEvents;
 using MediatR;
 
-namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.CreateProductBook.EventHandlers;
-internal sealed class ProductBookCreatedDomainEventHandler(
+namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.UpdateProductBook.EventHandlers;
+internal sealed class ProductBookTitleUpdatedDomainEventHandler(
     ISender sender,
-    IEventBus eventBus) : DomainEventHandler<ProductBookCreatedDomainEvent>
+    IEventBus eventBus) : DomainEventHandler<ProductBookTitleUpdatedDomainEvent>
 {
     public override async Task Handle(
-        ProductBookCreatedDomainEvent domainEvent, CancellationToken cancellationToken = default)
+        ProductBookTitleUpdatedDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
         Result<ProductBookDto> productBookDtoResult = await sender.Send(
             new GetProductBookByIdQuery(domainEvent.ProductBookId), cancellationToken);
 
-        if(productBookDtoResult.IsFailure)
+        if (productBookDtoResult.IsFailure)
         {
             throw new CrmException(
                 nameof(GetProductBookByIdQuery), productBookDtoResult.Error);
         }
 
         await eventBus.PublishAsync(
-            new ProductBookCreatedIntegrationEvent(
+            new ProductBookTitleUpdatedIntegrationEvent(
                 domainEvent.Id,
                 domainEvent.OccurredOnUtc,
                 productBookDtoResult.Value.Id,

@@ -2,9 +2,7 @@
 
 namespace Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBookEvents;
 public sealed class ProductBookTitleUpdatedDomainEvent(
-    Guid productBookId,
-    string title) : DomainEvent
+    Guid productBookId) : DomainEvent
 {
     public Guid ProductBookId { get; set; } = productBookId;
-    public string Title { get; set; } = title;
 }

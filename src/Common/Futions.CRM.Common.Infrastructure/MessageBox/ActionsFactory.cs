@@ -3,12 +3,11 @@ using Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Common.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Futions.CRM.Common.Infrastructure.Inbox;
-public static class InboxActionsFactory<TMessage> where TMessage : Message
+namespace Futions.CRM.Common.Infrastructure.MessageBox;
+public sealed class ActionsFactory<TMessage> where TMessage : Message
 {
     public static Func<IReadOnlyCollection<TMessage>, CancellationToken, Task> Create<TUnitOfWork>(
         IServiceProvider provider)
@@ -20,27 +19,27 @@ public static class InboxActionsFactory<TMessage> where TMessage : Message
 
             if (unitOfWork is null)
             {
-                throw new CrmException(nameof(InboxActionsFactory<TMessage>),
-                    Error.Problem("InboxCreate.NullError", "Unit Of Work not found"));
+                throw new CrmException(nameof(ActionsFactory<TMessage>),
+                    Error.Problem("Create.NullError", "Unit Of Work not found"));
             }
-            
-            IWriteRepository<TMessage> inboxRepository = unitOfWork.GetWriteRepository<TMessage>();
 
-            if (inboxRepository is null)
+            IWriteRepository<TMessage> messageBoxRepository = unitOfWork.GetWriteRepository<TMessage>();
+
+            if (messageBoxRepository is null)
             {
-                throw new CrmException(nameof(InboxActionsFactory<TMessage>),
-                    Error.Problem("InboxCreate.NullError", "Write repository not found"));
+                throw new CrmException(nameof(ActionsFactory<TMessage>),
+                    Error.Problem("Create.NullError", "Write repository not found"));
             }
 
-            await inboxRepository.CreateRangeAsync(messages, cancellationToken);
+            await messageBoxRepository.CreateRangeAsync(messages, cancellationToken);
 
             await unitOfWork.CommitAsync(cancellationToken);
         };
     }
 
-    public static async Task<IReadOnlyList<InboxMessageResponse>> GetMessages<TUnitOfWork>(
+    public static async Task<IReadOnlyList<MessageResponse>> GetMessages<TUnitOfWork>(
         IServiceScopeFactory provider,
-        IInboxOptions options,
+        IMessageBoxOptions options,
         CancellationToken cancellationToken = default)
         where TUnitOfWork : IUnitOfWork
     {
@@ -50,23 +49,23 @@ public static class InboxActionsFactory<TMessage> where TMessage : Message
 
         if (unitOfWork is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
-                Error.Problem("InboxGetAll.NullError", "Unit Of Work not found"));
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
+                Error.Problem("GetAll.NullError", "Unit Of Work not found"));
         }
 
-        IReadRepository<TMessage> inboxRepository = unitOfWork.GetReadRepository<TMessage>();
+        IReadRepository<TMessage> messageRepository = unitOfWork.GetReadRepository<TMessage>();
 
-        if (inboxRepository is null)
+        if (messageRepository is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
-                Error.Problem("InboxGetAll.NullError", "Read repository not found"));
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
+                Error.Problem("GetAll.NullError", "Read repository not found"));
         }
 
-        List<InboxMessageResponse> messages = await inboxRepository.GetAll()
+        List<MessageResponse> messages = await messageRepository.GetAll()
             .Where(x => !x.ProcessedOnUtc.HasValue)
             .OrderBy(x => x.OccurredOnUtc)
             .Take(options.BatchSize)
-            .Select(om => new InboxMessageResponse(om.Id, om.Content))
+            .Select(om => new MessageResponse(om.Id, om.Content))
             .ToListAsync(cancellationToken);
 
         return messages.AsReadOnly();
@@ -74,7 +73,7 @@ public static class InboxActionsFactory<TMessage> where TMessage : Message
 
     public static async Task Update<TUnitOfWork>(
         IServiceScopeFactory provider,
-        InboxMessageResponse inboxMessage,
+        MessageResponse inboxMessage,
         Exception? exception,
         CancellationToken cancellationToken = default)
         where TUnitOfWork : IUnitOfWork
@@ -85,39 +84,39 @@ public static class InboxActionsFactory<TMessage> where TMessage : Message
 
         if (unitOfWork is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
-                Error.Problem("InboxUpdate.NullError", "Unit Of Work not found"));
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
+                Error.Problem("Update.NullError", "Unit Of Work not found"));
         }
 
-        IWriteRepository<TMessage> inboxWriteRepository = unitOfWork.GetWriteRepository<TMessage>();
+        IWriteRepository<TMessage> writeRepository = unitOfWork.GetWriteRepository<TMessage>();
 
-        if (inboxWriteRepository is null)
+        if (writeRepository is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
                 Error.Problem("InboxUpdate.NullError", "Write repository not found"));
         }
 
-        IReadRepository<TMessage> inboxReadRepository = unitOfWork.GetReadRepository<TMessage>();
+        IReadRepository<TMessage> readRepository = unitOfWork.GetReadRepository<TMessage>();
 
-        if (inboxReadRepository is null)
+        if (readRepository is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
                 Error.Problem("InboxUpdate.NullError", "Read repository not found"));
         }
 
 
-        TMessage message = await inboxReadRepository
+        TMessage message = await readRepository
             .GetByIdAsync(inboxMessage.Id, cancellationToken);
 
         if (message is null)
         {
-            throw new CrmException(nameof(InboxActionsFactory<TMessage>),
+            throw new CrmException(nameof(ActionsFactory<TMessage>),
                 Error.Problem("InboxUpdate.NullError", "Message not found"));
         }
 
         message.Update(exception?.ToString());
 
-        inboxWriteRepository.Update(message);
+        writeRepository.Update(message);
 
         await unitOfWork.CommitAsync(cancellationToken);
     }

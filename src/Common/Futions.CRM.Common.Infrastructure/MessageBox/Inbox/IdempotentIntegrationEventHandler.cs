@@ -3,7 +3,7 @@ using Futions.CRM.Common.Domain.Abstractions.IUnitOfWorks;
 using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Microsoft.EntityFrameworkCore;
 
-namespace Futions.CRM.Common.Infrastructure.Inbox;
+namespace Futions.CRM.Common.Infrastructure.MessageBox.Inbox;
 public sealed class IdempotentIntegrationEventHandler<TIntegrationEvent, TUnitOfWork, TMessageConsumer>(
     IIntegrationEventHandler<TIntegrationEvent> decorated,
     TUnitOfWork unitOfWork,

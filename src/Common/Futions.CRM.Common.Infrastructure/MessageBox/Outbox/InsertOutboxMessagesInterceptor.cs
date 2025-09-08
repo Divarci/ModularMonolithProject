@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 
-namespace Futions.CRM.Common.Infrastructure.Outbox;
+namespace Futions.CRM.Common.Infrastructure.MessageBox.Outbox;
 public sealed class InsertOutboxMessagesInterceptor<TMessage>(
     Func<IReadOnlyCollection<TMessage>, CancellationToken, Task> handler,
     IMessageFactory<TMessage> messageFactory) : SaveChangesInterceptor

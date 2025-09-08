@@ -1,16 +1,13 @@
 ﻿using System.Reflection;
 using Futions.CRM.Common.Application.EventBus;
-using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Abstractions.IGenericRepositoies;
 using Futions.CRM.Common.Infrastructure.Authentication;
 using Futions.CRM.Common.Infrastructure.Authorisation;
 using Futions.CRM.Common.Infrastructure.GenericRepositories;
-using Futions.CRM.Common.Infrastructure.Outbox;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Quartz;
 
 namespace Futions.CRM.Common.Infrastructure;

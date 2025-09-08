@@ -1,7 +1,7 @@
-﻿using Futions.CRM.Common.Infrastructure.Outbox;
+﻿using Futions.CRM.Common.Infrastructure.MessageBox;
 
 namespace Futions.CRM.Modules.Users.Infrastructure.Outbox;
-internal sealed class UsersOutboxOptions : IOutboxOptions
+internal sealed class UsersOutboxOptions : IMessageBoxOptions
 {
     public int IntervalInSeconds { get; set; }  
 

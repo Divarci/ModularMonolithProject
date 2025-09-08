@@ -4,7 +4,7 @@ using Futions.CRM.Common.Domain.DomainEvents;
 using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Microsoft.EntityFrameworkCore;
 
-namespace Futions.CRM.Common.Infrastructure.Outbox;
+namespace Futions.CRM.Common.Infrastructure.MessageBox.Outbox;
 public sealed class IdempotentDomainEventHandler<TDomainEvent, TUnitOfWork, TMessageConsumer>(
     IDomainEventHandler<TDomainEvent> decorated,
     TUnitOfWork unitOfWork,

@@ -1,7 +1,8 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Futions.CRM.Common.Domain.Entities.Messages;
-using Futions.CRM.Common.Infrastructure.Outbox;
+using Futions.CRM.Common.Infrastructure.MessageBox;
+using Futions.CRM.Common.Infrastructure.MessageBox.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.OutboxMessages;
@@ -54,13 +55,13 @@ public static class CatalogueModule
 
         services.AddScoped(provider =>
             new InsertOutboxMessagesInterceptor<CatalogueOutboxMessage>(
-                OutboxActionsFactory<CatalogueOutboxMessage>.Create<ICatalogueUnitOfWork>(provider),
+                ActionsFactory<CatalogueOutboxMessage>.Create<ICatalogueUnitOfWork>(provider),
                 provider.GetRequiredService<IMessageFactory<CatalogueOutboxMessage>>()
         ));
 
         services.Configure<CatalogueOutboxOptions>(config.GetSection("Catalogue:Outbox"));
 
-        services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, CatalogueOutboxOptions>>();
+        services.ConfigureOptions<ConfigureProcessMessageBoxJob<ProcessOutboxJob, CatalogueOutboxOptions>>();
     }
 
     private static void AddDomainEventHandlers(this IServiceCollection services)

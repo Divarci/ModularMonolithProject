@@ -1,11 +1,10 @@
-﻿using Futions.CRM.Common.Infrastructure.Outbox;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Quartz;
 
-namespace Futions.CRM.Common.Infrastructure.Inbox;
-public sealed class ConfigureProcessInboxJob<TJob, TOptions>(IOptions<TOptions> inboxOptions)
+namespace Futions.CRM.Common.Infrastructure.MessageBox;
+public class ConfigureProcessMessageBoxJob<TJob, TOptions>(IOptions<TOptions> inboxOptions)
     : IConfigureOptions<QuartzOptions>
-    where TJob : IJob where TOptions : class, IInboxOptions
+    where TJob : IJob where TOptions : class, IMessageBoxOptions
 {
     private readonly TOptions _inboxOptions = inboxOptions.Value;
 
@@ -14,7 +13,7 @@ public sealed class ConfigureProcessInboxJob<TJob, TOptions>(IOptions<TOptions> 
         string jobName = typeof(TJob).FullName!;
 
         options
-            .AddJob<TJob>(configure => 
+            .AddJob<TJob>(configure =>
                 configure
                     .WithIdentity(jobName)
                     .StoreDurably()

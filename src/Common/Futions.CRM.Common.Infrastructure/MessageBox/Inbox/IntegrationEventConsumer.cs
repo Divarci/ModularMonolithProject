@@ -6,7 +6,7 @@ using MassTransit;
 using Newtonsoft.Json;
 
 
-namespace Futions.CRM.Common.Infrastructure.Inbox;
+namespace Futions.CRM.Common.Infrastructure.MessageBox.Inbox;
 public sealed class IntegrationEventConsumer<TIntegrationEvent, TUnitOfWork, TMessage>(
     TUnitOfWork unitOfWork,
     IMessageFactory<TMessage> messageFactory) : IConsumer<TIntegrationEvent>

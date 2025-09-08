@@ -1,5 +1,4 @@
-﻿using Futions.CRM.Common.Infrastructure.Outbox;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 public sealed class CatalogueDbContext(DbContextOptions<CatalogueDbContext> options) : DbContext(options)

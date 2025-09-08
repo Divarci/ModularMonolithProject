@@ -1,7 +1,7 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Common.Infrastructure.Inbox;
+using Futions.CRM.Common.Infrastructure.MessageBox;
 using Futions.CRM.Common.Infrastructure.Serialization;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.InboxMessages;
@@ -33,10 +33,10 @@ internal sealed class ProcessInboxJob(
 
         await _unitOfWork.BeginTransactionAsync();
 
-        IReadOnlyList<InboxMessageResponse> inboxMessages = await InboxActionsFactory<DealsInboxMessage>
+        IReadOnlyList<MessageResponse> inboxMessages = await ActionsFactory<DealsInboxMessage>
             .GetMessages<IDealsUnitOfWork>(_serviceScopeFactory, _inboxOptions);
 
-        foreach (InboxMessageResponse inboxMessage in inboxMessages)
+        foreach (MessageResponse inboxMessage in inboxMessages)
         {
             Exception? exception = null;
 
@@ -53,8 +53,7 @@ internal sealed class ProcessInboxJob(
 
                 using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-                IEnumerable<IIntegrationEventHandler> integrationEventHandlers = IntegrationEventHandlersFactory.GetHandlers(
-                    integrationEvent.GetType(),
+                IEnumerable<IIntegrationEventHandler> integrationEventHandlers = EventHandlersFactory.GetHandlers<IIntegrationEventHandler, IIntegrationEvent>(
                     scope.ServiceProvider,
                     Presentation.AssemblyReference.Assembly);
 
@@ -70,7 +69,7 @@ internal sealed class ProcessInboxJob(
                 exception = ex;
             }
 
-            await InboxActionsFactory<DealsInboxMessage>.Update<IDealsUnitOfWork>(
+            await ActionsFactory<DealsInboxMessage>.Update<IDealsUnitOfWork>(
                 _serviceScopeFactory, inboxMessage, exception);
 
         }

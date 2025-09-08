@@ -2,8 +2,9 @@
 using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Futions.CRM.Common.Domain.Entities.Messages;
-using Futions.CRM.Common.Infrastructure.Inbox;
-using Futions.CRM.Common.Infrastructure.Outbox;
+using Futions.CRM.Common.Infrastructure.MessageBox;
+using Futions.CRM.Common.Infrastructure.MessageBox.Inbox;
+using Futions.CRM.Common.Infrastructure.MessageBox.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Catalogue.IntegrationEvents;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
@@ -64,13 +65,13 @@ public static class DealsModule
 
         services.AddScoped(provider =>
             new InsertOutboxMessagesInterceptor<DealsOutboxMessage>(
-                OutboxActionsFactory<DealsOutboxMessage>.Create<IDealsUnitOfWork>(provider),
+                ActionsFactory<DealsOutboxMessage>.Create<IDealsUnitOfWork>(provider),
                 provider.GetRequiredService<IMessageFactory<DealsOutboxMessage>>()
         ));
 
         services.Configure<DealsOutboxOptions>(config.GetSection("Deals:Outbox"));
 
-        services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, DealsOutboxOptions>>();
+        services.ConfigureOptions<ConfigureProcessMessageBoxJob<ProcessOutboxJob, DealsOutboxOptions>>();
     }
 
     public static void AddInbox(IServiceCollection services, IConfiguration config)
@@ -79,7 +80,7 @@ public static class DealsModule
 
         services.Configure<DealsInboxOptions>(config.GetSection("Deals:Inbox"));
 
-        services.ConfigureOptions<ConfigureProcessInboxJob<ProcessInboxJob, DealsInboxOptions>>();
+        services.ConfigureOptions<ConfigureProcessMessageBoxJob<ProcessInboxJob, DealsInboxOptions>>();
     }
 
     private static void AddDomainEventHandlers(this IServiceCollection services)

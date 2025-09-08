@@ -2,7 +2,8 @@
 using Futions.CRM.Common.Domain.Abstractions.Authorisations;
 using Futions.CRM.Common.Domain.Entities.MessageConsumers;
 using Futions.CRM.Common.Domain.Entities.Messages;
-using Futions.CRM.Common.Infrastructure.Outbox;
+using Futions.CRM.Common.Infrastructure.MessageBox;
+using Futions.CRM.Common.Infrastructure.MessageBox.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Modules.Users.Domain.Abstractions;
 using Futions.CRM.Modules.Users.Domain.OutboxMessages;
@@ -76,13 +77,13 @@ public static class UsersModule
 
         services.AddScoped(provider =>
             new InsertOutboxMessagesInterceptor<UsersOutboxMessage>(
-                OutboxActionsFactory<UsersOutboxMessage>.Create<IUsersUnitOfWork>(provider),
+                ActionsFactory<UsersOutboxMessage>.Create<IUsersUnitOfWork>(provider),
                 provider.GetRequiredService<IMessageFactory<UsersOutboxMessage>>()
         ));
 
         services.Configure<UsersOutboxOptions>(config.GetSection("Users:Outbox"));
 
-        services.ConfigureOptions<ConfigureProcessOutboxJob<ProcessOutboxJob, UsersOutboxOptions>>();
+        services.ConfigureOptions<ConfigureProcessMessageBoxJob<ProcessOutboxJob, UsersOutboxOptions>>();
     }
     private static void AddDomainEventHandlers(this IServiceCollection services)
     {

@@ -2,11 +2,10 @@
 using Futions.CRM.Common.Domain.DomainEvents;
 using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Common.Infrastructure.Outbox;
+using Futions.CRM.Common.Infrastructure.MessageBox;
 using Futions.CRM.Common.Infrastructure.Serialization;
 using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
 using Futions.CRM.Modules.Catalogue.Domain.OutboxMessages;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -35,10 +34,10 @@ internal sealed class ProcessOutboxJob(
 
         await _unitOfWork.BeginTransactionAsync();
 
-        IReadOnlyList<OutboxMessageResponse> outboxMessages = await OutboxActionsFactory<CatalogueOutboxMessage>
+        IReadOnlyList<MessageResponse> outboxMessages = await ActionsFactory<CatalogueOutboxMessage>
             .GetMessages<ICatalogueUnitOfWork>(_serviceScopeFactory, _outboxOptions);
 
-        foreach (OutboxMessageResponse outboxMessage in outboxMessages)
+        foreach (MessageResponse outboxMessage in outboxMessages)
         {
             Exception? exception = null;
 
@@ -55,10 +54,10 @@ internal sealed class ProcessOutboxJob(
 
                 using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-                IEnumerable<IDomainEventHandler> domainEventHandlers = DomainEventHandlersFactory.GetHandlers(
-                    domainEvent.GetType(),
-                    scope.ServiceProvider,
-                    Application.AssemblyReference.Assembly);
+                IEnumerable<IDomainEventHandler> domainEventHandlers = EventHandlersFactory
+                    .GetHandlers<IDomainEventHandler, IDomainEvent>(
+                        scope.ServiceProvider,
+                        Application.AssemblyReference.Assembly);
 
                 foreach (IDomainEventHandler domainEventHandler in domainEventHandlers)
                 {
@@ -72,7 +71,7 @@ internal sealed class ProcessOutboxJob(
                 exception = ex;
             }
 
-            await OutboxActionsFactory<CatalogueOutboxMessage>.Update<ICatalogueUnitOfWork>(
+            await ActionsFactory<CatalogueOutboxMessage>.Update<ICatalogueUnitOfWork>(
                 _serviceScopeFactory, outboxMessage, exception);
 
         }

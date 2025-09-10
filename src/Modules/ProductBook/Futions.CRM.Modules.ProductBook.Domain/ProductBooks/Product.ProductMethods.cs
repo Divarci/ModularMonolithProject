@@ -51,7 +51,7 @@ public partial class Product
 
         Title = title;
 
-        Raise(new ProductTitleUpdatedDomainEvent(ProductBookId, Id));
+        Raise(new ProductUpdatedDomainEvent(ProductBookId, Id));
 
         return Result.Success();
     }
@@ -67,7 +67,7 @@ public partial class Product
 
         Description = description;
 
-        Raise(new ProductDescriptionUpdatedDomainEvent(ProductBookId, Id));
+        Raise(new ProductUpdatedDomainEvent(ProductBookId, Id));
 
         return Result.Success();
     }
@@ -81,7 +81,7 @@ public partial class Product
                
         Price = price;
 
-        Raise(new ProductPriceUpdatedDomainEvent(ProductBookId, Id));
+        Raise(new ProductUpdatedDomainEvent(ProductBookId, Id));
 
         return Result.Success();
     }

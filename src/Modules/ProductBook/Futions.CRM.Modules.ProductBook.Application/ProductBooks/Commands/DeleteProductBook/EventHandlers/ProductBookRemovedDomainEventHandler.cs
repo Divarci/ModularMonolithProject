@@ -8,29 +8,30 @@ using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBook
 using Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
 using MediatR;
 
-namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.UpdateProductBook.EventHandlers;
-internal sealed class ProductBookTitleUpdatedDomainEventHandler(
+namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.DeleteProductBook.EventHandlers;
+internal sealed class ProductBookRemovedDomainEventHandler(
     ISender sender,
-    IEventBus eventBus) : DomainEventHandler<ProductBookTitleUpdatedDomainEvent>
+    IEventBus eventBus) : DomainEventHandler<ProductBookRemovedDomainEvent>
 {
     public override async Task Handle(
-        ProductBookTitleUpdatedDomainEvent domainEvent, CancellationToken cancellationToken = default)
+        ProductBookRemovedDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
         Result<ProductBookDto> productBookDtoResult = await sender.Send(
             new GetProductBookByIdQuery(domainEvent.ProductBookId), cancellationToken);
 
-        if (productBookDtoResult.IsFailure)
+        if (productBookDtoResult.IsSuccess)
         {
             throw new CrmException(
-                nameof(GetProductBookByIdQuery), productBookDtoResult.Error);
+                nameof(GetProductBookByIdQuery), Error.Problem(
+                    "ProductBook.RemoveError",
+                    "Product Book should have been deleted but not"));
         }
 
         await eventBus.PublishAsync(
-            new ProductBookTitleUpdatedIntegrationEvent(
+            new ProductBookRemovedIntegrationEvent(
                 domainEvent.Id,
                 domainEvent.OccurredOnUtc,
-                productBookDtoResult.Value.Id,
-                productBookDtoResult.Value.Title),
+                domainEvent.ProductBookId),
             cancellationToken);
     }
 }

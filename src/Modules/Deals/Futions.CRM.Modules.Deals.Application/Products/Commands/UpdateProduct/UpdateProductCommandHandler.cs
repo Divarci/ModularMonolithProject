@@ -17,6 +17,7 @@ internal sealed class UpdateProductCommandHandler(
         ProductBook productBook = await _unitOfWork
             .GetReadRepository<ProductBook>()
             .Query(query => query
+                .AsTracking()
                 .Include(x => x.Products)
                 .SingleOrDefaultAsync(x => x.Id == request.ProductBookId, cancellationToken)
             );
@@ -25,19 +26,18 @@ internal sealed class UpdateProductCommandHandler(
         {
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
+        
+        Product product = productBook.Products
+            .SingleOrDefault(x=>x.Id == request.ProductId);
 
-        if (string.IsNullOrEmpty(request.Title) && 
-            string.IsNullOrEmpty(request.Description) && 
-            !request.Price.HasValue)
+        if (product is null)
         {
-            return Result.Failure(Error.Conflict(
-                "ProductBook.Conflict",
-                "All fields can not be null or empty"));
+            return Result.Failure(ProductErrors.NotFound(request.ProductId));
         }
 
-        if (!string.IsNullOrEmpty(request.Title))
+        if (product.Title != request.Title)
         {
-            Result result = productBook.UpdateProductTitle(request.ProductId, request.Title);
+            Result result = productBook.UpdateProductTitle(request.ProductId, request.Title!);
 
             if(result.IsFailure)
             {
@@ -45,7 +45,7 @@ internal sealed class UpdateProductCommandHandler(
             }
         }
 
-        if (!string.IsNullOrEmpty(request.Description))
+        if (product.Description != request.Description)
         {
             Result result = productBook.UpdateProductDescription(request.ProductId, request.Description);
 
@@ -55,9 +55,9 @@ internal sealed class UpdateProductCommandHandler(
             }
         }
 
-        if (request.Price.HasValue)
+        if (product.Price != request.Price)
         {
-            Result result = productBook.UpdateProductPrice(request.ProductId, request.Price.Value);
+            Result result = productBook.UpdateProductPrice(request.ProductId, request.Price);
 
             if (result.IsFailure)
             {

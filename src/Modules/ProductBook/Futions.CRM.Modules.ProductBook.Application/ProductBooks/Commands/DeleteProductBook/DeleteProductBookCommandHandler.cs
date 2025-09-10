@@ -33,6 +33,8 @@ internal sealed class DeleteProductBookCommandHandler(
 
         _unitOfWork.GetWriteRepository<ProductBook>().Delete(productBook);
 
+        productBook.DeleteProductBook();
+
         await _unitOfWork.CommitAsync(cancellationToken);
 
         return Result.Success();

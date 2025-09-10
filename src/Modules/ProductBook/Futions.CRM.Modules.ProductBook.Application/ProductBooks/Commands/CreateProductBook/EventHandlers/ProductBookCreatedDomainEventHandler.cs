@@ -5,7 +5,7 @@ using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.GetProductBookById;
 using Futions.CRM.Modules.Catalogue.Application.ProductBooks.Queries.Shared.Dto;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductBookEvents;
-using Futions.CRM.Modules.Catalogue.IntegrationEvents;
+using Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
 using MediatR;
 
 namespace Futions.CRM.Modules.Catalogue.Application.ProductBooks.Commands.CreateProductBook.EventHandlers;

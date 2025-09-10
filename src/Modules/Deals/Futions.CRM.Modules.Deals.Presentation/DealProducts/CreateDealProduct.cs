@@ -2,7 +2,6 @@
 using Futions.CRM.Common.Presentation.Endpoints;
 using Futions.CRM.Common.Presentation.Results;
 using Futions.CRM.Modules.Deals.Application.DealProducts.Commands.CreateDealProduct;
-using Futions.CRM.Modules.Deals.Domain.Deals;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

@@ -6,17 +6,17 @@ using Futions.CRM.Modules.Deals.Application.ProductBooks.Commands.UpdateProductB
 using MediatR;
 
 namespace Futions.CRM.Modules.Deals.Presentation.ProductBooks;
-public sealed class ProductBookTitleUpdatedIntegrationEventHandler(
-    ISender sender) : IntegrationEventHandler<ProductBookTitleUpdatedIntegrationEvent>
+public sealed class ProductBookStatusUpdateIntegrationEventHandler(
+    ISender sender) : IntegrationEventHandler<ProductBookStatusUpdateIntegrationEvent>
 {
     public override async Task Handle(
-        ProductBookTitleUpdatedIntegrationEvent integrationEvent,
+        ProductBookStatusUpdateIntegrationEvent integrationEvent,
         CancellationToken cancellationToken = default)
     {
         Result result = await sender.Send(
             new UpdateProductBookCommand(
                 ProductBookId: integrationEvent.ProductBookId,
-                Title: integrationEvent.Title),
+                Inactive: integrationEvent.Inactive),
                 cancellationToken);
 
         if (result.IsFailure)

@@ -6,7 +6,7 @@ namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
 public partial class Product
 {
     public static Result<Product> Create(
-        Guid productBookId, string title, string description, decimal price)
+        Guid productBookId, Guid productId, string title, string description, decimal price)
     {
         if (productBookId == Guid.Empty)
         {
@@ -32,7 +32,7 @@ public partial class Product
             return Result.Failure<Product>(ProductErrors.NegativeValue(nameof(price)));
         }
 
-        var product = new Product(productBookId, title, description, price);
+        var product = new Product(productBookId, productId, title, description, price);
 
         return Result.Success(product);
     }

@@ -5,7 +5,8 @@ using Futions.CRM.Common.Domain.Entities.Messages;
 using Futions.CRM.Common.Infrastructure.Inbox;
 using Futions.CRM.Common.Infrastructure.Outbox;
 using Futions.CRM.Common.Presentation.Endpoints;
-using Futions.CRM.Modules.Catalogue.IntegrationEvents;
+using Futions.CRM.Modules.Catalogue.IntegrationEvents.Product;
+using Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
 using Futions.CRM.Modules.Deals.Domain.Abstractions;
 using Futions.CRM.Modules.Deals.Domain.InboxMessages;
 using Futions.CRM.Modules.Deals.Domain.OutboxMessages;
@@ -60,6 +61,26 @@ public static class DealsModule
         registrationConfigurator.AddConsumer<
             IntegrationEventConsumer<
                 ProductBookTitleUpdatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductBookStatusUpdateIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductBookRemovedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductCreatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductRemovedFromProductBookIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+
+        registrationConfigurator.AddConsumer<
+            IntegrationEventConsumer<
+                ProductUpdatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
     }
 
     public static void AddOutbox(IServiceCollection services, IConfiguration config)

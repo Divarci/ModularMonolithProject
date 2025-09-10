@@ -17,6 +17,7 @@ internal sealed class CreateProductCommandHandler(
         ProductBook productBook = await _unitOfWork
             .GetReadRepository<ProductBook>()
             .Query(query => query
+                .AsTracking()
                 .Include(x => x.Products)
                 .SingleOrDefaultAsync(x => x.Id == request.ProductBookId, cancellationToken)
             );
@@ -27,6 +28,7 @@ internal sealed class CreateProductCommandHandler(
         }
 
         Result<Product> result = Product.Create(
+            productId: request.ProductId,
             productBookId: request.ProductBookId,
             title: request.Title,
             description: request.Description,

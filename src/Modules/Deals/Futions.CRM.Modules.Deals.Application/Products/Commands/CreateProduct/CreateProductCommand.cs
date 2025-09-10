@@ -3,6 +3,7 @@
 namespace Futions.CRM.Modules.Deals.Application.Products.Commands.CreateProduct;
 public record CreateProductCommand(
     Guid ProductBookId, 
+    Guid ProductId,
     string Title,
     string Description,
     decimal Price) : ICommand<Guid>;

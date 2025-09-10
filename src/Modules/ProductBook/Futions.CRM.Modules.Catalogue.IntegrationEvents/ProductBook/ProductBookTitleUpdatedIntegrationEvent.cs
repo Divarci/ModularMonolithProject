@@ -1,11 +1,10 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
 
-namespace Futions.CRM.Modules.Catalogue.IntegrationEvents;
-
-public sealed class ProductBookCreatedIntegrationEvent : IntegrationEvent
+namespace Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
+public sealed class ProductBookTitleUpdatedIntegrationEvent : IntegrationEvent
 {
-    public ProductBookCreatedIntegrationEvent(
-        Guid id, 
+    public ProductBookTitleUpdatedIntegrationEvent(
+        Guid id,
         DateTime occuredOnUtc,
         Guid productBookId,
         string title) : base(id, occuredOnUtc)

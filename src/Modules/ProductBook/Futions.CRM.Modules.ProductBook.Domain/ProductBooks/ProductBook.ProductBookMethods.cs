@@ -54,7 +54,7 @@ public partial class ProductBook
 
         Inactive = true;
 
-        Raise(new ProductBookSetInactiveDomainEvent(Id));
+        Raise(new ProductBookStatusUpdateDomainEvent(Id));
 
         return Result.Success();
     }
@@ -68,8 +68,12 @@ public partial class ProductBook
 
         Inactive = false;
 
-        Raise(new ProductBookSetActiveDomainEvent(Id));
+        Raise(new ProductBookStatusUpdateDomainEvent(Id));
 
         return Result.Success();
     }    
+
+    public void DeleteProductBook()
+        => Raise(new ProductBookRemovedDomainEvent(Id));
+    
 }

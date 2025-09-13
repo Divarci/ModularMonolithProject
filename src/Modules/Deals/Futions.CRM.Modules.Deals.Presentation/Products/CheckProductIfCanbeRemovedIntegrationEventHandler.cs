@@ -1,9 +1,6 @@
 ﻿using Futions.CRM.Common.Application.EventBus;
-using Futions.CRM.Common.Domain.DomainEvents;
-using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.IntegrationEvents.Product;
-using Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
 using Futions.CRM.Modules.Deals.Application.Products.Commands.DeleteProduct;
 using Futions.CRM.Modules.Deals.IntegrationEvents;
 using MediatR;

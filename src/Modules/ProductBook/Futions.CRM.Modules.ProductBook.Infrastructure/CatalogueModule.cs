@@ -13,6 +13,7 @@ using Futions.CRM.Modules.Catalogue.Infrastructure.Outbox;
 using Futions.CRM.Modules.Catalogue.Infrastructure.Persistance.Database;
 using Futions.CRM.Modules.Catalogue.Infrastructure.UnitOfWorks;
 using Futions.CRM.Modules.Catalogue.IntegrationEvents.ProductBook;
+using Futions.CRM.Modules.Catalogue.Presentation.Products.ProductDeleteSagaPattern;
 using Futions.CRM.Modules.Deals.IntegrationEvents;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,10 @@ public static class CatalogueModule
         registrationConfigurator.AddConsumer<
             IntegrationEventConsumer<
                 ProductRemoveCompletedIntegrationEvent, ICatalogueUnitOfWork, CatalogueInboxMessage>>();
+
+        registrationConfigurator
+            .AddSagaStateMachine<ProductDeleteSaga, ProductDeleteState>()
+            .InMemoryRepository();
     }
 
     public static void AddOutbox(IServiceCollection services, IConfiguration config)

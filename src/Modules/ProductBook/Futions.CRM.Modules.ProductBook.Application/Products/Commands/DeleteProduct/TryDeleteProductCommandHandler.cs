@@ -1,34 +1,33 @@
 ﻿using Futions.CRM.Common.Application.Messaging;
 using Futions.CRM.Common.Domain.Results;
-using Futions.CRM.Modules.Deals.Domain.Abstractions;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
-using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
+using Futions.CRM.Modules.Catalogue.Domain.Abstractions;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks;
+using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
 using Microsoft.EntityFrameworkCore;
 
-namespace Futions.CRM.Modules.Deals.Application.Products.Commands.DeleteProduct;
-internal sealed class DeleteProductCommandHandler(
-    IDealsUnitOfWork unitOfWork) : ICommandHandler<DeleteProductCommand>
+namespace Futions.CRM.Modules.Catalogue.Application.Products.Commands.DeleteProduct;
+internal sealed class TryDeleteProductCommandHandler(
+    ICatalogueUnitOfWork unitOfWork) : ICommandHandler<TryDeleteProductCommand>
 {
-    private readonly IDealsUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ICatalogueUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<Result> Handle(
-        DeleteProductCommand request, CancellationToken cancellationToken)
+        TryDeleteProductCommand request, CancellationToken cancellationToken)
     {
         ProductBook productBook = await _unitOfWork
             .GetReadRepository<ProductBook>()
             .Query(query => query
                 .AsTracking()
                 .Include(x => x.Products)
-                    .ThenInclude(x=>x.DealProducts)
                 .SingleOrDefaultAsync(x => x.Id == request.ProductBookId, cancellationToken)
             );
 
         if (productBook is null)
-        {            
+        {
             return Result.Failure(ProductBookErrors.NotFound(request.ProductBookId));
         }
 
-        Result result = productBook.RemoveProduct(request.ProductId);
+        Result result = productBook.TryRemoveProduct(request.ProductId);
 
         if (result.IsFailure)
         {

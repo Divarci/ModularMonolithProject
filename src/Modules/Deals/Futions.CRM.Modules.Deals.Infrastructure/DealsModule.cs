@@ -76,8 +76,8 @@ public static class DealsModule
 
         registrationConfigurator.AddConsumer<
             IntegrationEventConsumer<
-                ProductRemovedFromProductBookIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
-
+                CheckProductIfCanbeRemovedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();
+        
         registrationConfigurator.AddConsumer<
             IntegrationEventConsumer<
                 ProductUpdatedIntegrationEvent, IDealsUnitOfWork, DealsInboxMessage>>();

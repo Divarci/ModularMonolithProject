@@ -1,4 +1,5 @@
 ﻿using Futions.CRM.Common.Domain.Abstractions.Entities.Extensions;
+using Futions.CRM.Common.Domain.Exceptions;
 using Futions.CRM.Common.Domain.Results;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.DomainEvents.ProductEvents;
 using Futions.CRM.Modules.Catalogue.Domain.ProductBooks.Errors;
@@ -15,7 +16,7 @@ public partial class Product
         }
 
         Result titleResult = title.Validate(nameof(title), 64, "Product");
-        
+
         if (titleResult.IsFailure)
         {
             return Result.Failure<Product>(titleResult.Error);
@@ -78,7 +79,7 @@ public partial class Product
         {
             return Result.Failure<Product>(ProductErrors.NegativeValue(nameof(price)));
         }
-               
+
         Price = price;
 
         Raise(new ProductUpdatedDomainEvent(ProductBookId, Id));
@@ -95,12 +96,36 @@ public partial class Product
 
     public Result DecreaseDealCount()
     {
-        if(ActiveDealCount == 0)
+        if (ActiveDealCount == 0)
         {
             return Result.Failure<Product>(ProductErrors.DealCountZero);
         }
 
         ActiveDealCount++;
+
+        return Result.Success();
+    }
+
+    public Result CheckProductIfCanbeRemoved()
+    {
+        bool isRemovable = ActiveDealCount <= 0;
+
+        if (!isRemovable)
+        {
+            return Result.Failure(
+                Error.Problem("Error.Product", "Product is not removable"));
+        }
+
+        IsPending = true;
+
+        Raise(new CheckProductIfCanbeRemovedDomainEvent(ProductBookId, Id));
+
+        return Result.Success();
+    }
+
+    public Result RemovePending()
+    {
+        IsPending = false;
 
         return Result.Success();
     }

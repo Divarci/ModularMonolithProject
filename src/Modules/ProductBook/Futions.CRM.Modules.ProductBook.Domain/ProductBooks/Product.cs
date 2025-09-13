@@ -20,6 +20,7 @@ public sealed partial class Product : BaseEntity, IAggregate
     public string Description { get; private set; }
     public decimal Price { get; private set; }
     public int ActiveDealCount { get; private set; }
+    public bool IsPending { get; private set; }
 
     public Guid ProductBookId { get; private set; }
     public ProductBook ProductBook { get; private set; }

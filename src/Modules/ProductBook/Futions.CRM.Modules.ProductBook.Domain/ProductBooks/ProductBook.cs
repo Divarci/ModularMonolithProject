@@ -16,8 +16,8 @@ public sealed partial class ProductBook : BaseEntity, IRootAggregate
     }
 
     public string Title { get; private set; }
-
     public bool Inactive { get; private set; }
+    public bool IsPending { get; private set; }
 
 
     private readonly List<Product> _products = [];

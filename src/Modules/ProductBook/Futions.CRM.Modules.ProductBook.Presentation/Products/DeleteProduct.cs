@@ -16,7 +16,7 @@ internal sealed class DeleteProduct : IEndpoint
             async (Guid id, Guid productId, ISender sender, CancellationToken cancellationToken = default) =>
             {
                 Result result = await sender
-                    .Send(new DeleteProductCommand(id, productId), cancellationToken);
+                    .Send(new TryDeleteProductCommand(id, productId), cancellationToken);
 
                 return result.Match(Results.NoContent, ApiResults.Problem);
             })

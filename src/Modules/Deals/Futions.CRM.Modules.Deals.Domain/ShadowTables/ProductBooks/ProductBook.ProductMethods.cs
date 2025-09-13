@@ -1,4 +1,5 @@
 ﻿using Futions.CRM.Common.Domain.Results;
+using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.DomainEvents;
 using Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks.Errors;
 
 namespace Futions.CRM.Modules.Deals.Domain.ShadowTables.ProductBooks;
@@ -41,7 +42,16 @@ public partial class ProductBook
             return Result.Failure(ProductErrors.NotFound(productId));
         }
 
+        if (product.DealProducts.Count > 0)
+        {
+            return Result.Failure(Error.Problem(
+                "Product.HasDeal",
+                "Product is in use"));
+        }
+
         _products.Remove(product);
+
+        Raise(new ProductRemoveCompletedDomainEvent(product.ProductBookId, productId));
 
         return Result.Success();
     }

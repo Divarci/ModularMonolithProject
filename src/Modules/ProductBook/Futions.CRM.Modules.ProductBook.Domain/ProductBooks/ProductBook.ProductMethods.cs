@@ -29,6 +29,25 @@ public partial class ProductBook
         return Result.Success();
     }
 
+    public Result TryRemoveProduct(Guid productId)
+    {
+        if (Inactive)
+        {
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
+
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
+
+        product.CheckProductIfCanbeRemoved();
+
+        return Result.Success();
+    }
+
     public Result RemoveProduct(Guid productId)
     {
         if (Inactive)
@@ -45,7 +64,29 @@ public partial class ProductBook
 
         _products.Remove(product);
 
-        Raise(new ProductRemovedFromProductBookDomainEvent(Id, product.Id));
+        return Result.Success();
+    }
+
+    public Result RemovePending(Guid productId)
+    {
+        if (Inactive)
+        {
+            return Result.Failure(ProductBookErrors.IsInactive);
+        }
+
+        Product product = _products.SingleOrDefault(p => p.Id == productId);
+
+        if (product is null)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId));
+        }
+
+        Result result = product.RemovePending();
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(ProductErrors.NotFound(productId)); // error degissin
+        }
 
         return Result.Success();
     }
